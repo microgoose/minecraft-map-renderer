@@ -1,8 +1,8 @@
 package net.world.map.generator.renderers;
 
-import net.world.map.structure.config.BlockMaterials;
+import net.world.map.structure.collecions.MaterialCollection;
 import net.world.map.structure.config.ChunkConfig;
-import net.world.map.structure.config.ColorsConfig;
+import net.world.map.structure.collecions.MaterialColorsCollection;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.Chunk;
 import net.world.map.structure.model.UnderwaterBlock;
@@ -34,7 +34,7 @@ public class ChunkRenderer {
                 int color;
 
                 if (block instanceof UnderwaterBlock underwaterBlock) {
-                    color = ColorsConfig.getColor(BlockMaterials.WATER);
+                    color = MaterialColorsCollection.getColor(MaterialCollection.WATER);
                     int depth = underwaterBlock.getDepth();
                     double heightDiff = (double) (depth - blockHeight) * 0.1D + (double) (x + y & 1) * 0.2D;
 

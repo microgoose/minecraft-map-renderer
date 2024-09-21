@@ -1,6 +1,6 @@
-package net.world.map.structure.config;
+package net.world.map.structure.collecions;
 
-public class BlockMaterials {
+public class MaterialCollection {
     public static final String AIR = "air";
     public static final String STONE = "stone";
     public static final String GRANITE = "granite";

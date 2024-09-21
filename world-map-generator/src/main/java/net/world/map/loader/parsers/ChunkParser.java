@@ -3,6 +3,8 @@ package net.world.map.loader.parsers;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
+import net.world.map.structure.collecions.MaterialColorsCollection;
+import net.world.map.structure.collecions.MaterialCollection;
 import net.world.map.structure.config.*;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.Chunk;
@@ -57,7 +59,7 @@ public class ChunkParser {
                     SectionParser sectionParser = sections.get(sectionHeightPos);
                     String blockType = sectionParser.getBlockType(x, height, y);
 
-                    if (blockType.equals(BlockMaterials.WATER)) {
+                    if (blockType.equals(MaterialCollection.WATER)) {
                         depth++;
                         continue;
                     }
@@ -67,7 +69,7 @@ public class ChunkParser {
 
                     int blockGlobalX = startBlockX + x;
                     int blockGlobalY = startBlockY + y;
-                    int rgb = ColorsConfig.getColor(blockType);
+                    int rgb = MaterialColorsCollection.getColor(blockType);
 
                     if (depth > 0) {
                         chunk.addBlockByLocal(x, y, new UnderwaterBlock(blockGlobalX, blockGlobalY, height, depth, rgb));

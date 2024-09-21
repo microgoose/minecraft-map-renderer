@@ -3,7 +3,7 @@ package net.world.map.loader.parsers;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.util.MCAMath;
-import net.world.map.structure.config.BlockMaterials;
+import net.world.map.structure.collecions.MaterialCollection;
 
 import java.util.Arrays;
 
@@ -43,14 +43,14 @@ public class SectionParser {
         }
 
         if (blocks.length == 0) {
-            return BlockMaterials.AIR;
+            return MaterialCollection.AIR;
         }
 
         int blockIndex = ((y & 0xF) << 8) + ((z & 0xF) << 4) + (x & 0xF);
         long value = MCAMath.getValueFromLongArray(blocks, blockIndex, bitsPerBlock);
 
         if (value >= blockPalette.length) {
-            return BlockMaterials.AIR;
+            return MaterialCollection.AIR;
         }
 
         return blockPalette[(int) value];
