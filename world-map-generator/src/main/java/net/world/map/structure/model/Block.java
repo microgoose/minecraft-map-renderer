@@ -4,13 +4,13 @@ public class Block {
     public final int x;
     public final int y;
     public final int height;
-    public final int rgb;
+    public final String blockType;
 
-    public Block(int x, int y, int height, int rgb) {
+    public Block(int x, int y, int height, String blockType) {
         this.x = x;
         this.y = y;
         this.height = height;
-        this.rgb = rgb;
+        this.blockType = blockType;
     }
 
     public int getX() {
@@ -25,7 +25,7 @@ public class Block {
         return height;
     }
 
-    public int getRgb() {
-        return rgb;
+    public String getBlockType() {
+        return blockType;
     }
 }

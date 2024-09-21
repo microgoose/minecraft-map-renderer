@@ -3,9 +3,10 @@ package net.world.map.loader.parsers;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
-import net.world.map.structure.collecions.MaterialColorsCollection;
 import net.world.map.structure.collecions.MaterialCollection;
-import net.world.map.structure.config.*;
+import net.world.map.structure.config.ChunkConfig;
+import net.world.map.structure.config.SectionConfig;
+import net.world.map.structure.config.WorldConfig;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.Chunk;
 import net.world.map.structure.model.UnderwaterBlock;
@@ -69,14 +70,13 @@ public class ChunkParser {
 
                     int blockGlobalX = startBlockX + x;
                     int blockGlobalY = startBlockY + y;
-                    int rgb = MaterialColorsCollection.getColor(blockType);
 
                     if (depth > 0) {
-                        chunk.addBlockByLocal(x, y, new UnderwaterBlock(blockGlobalX, blockGlobalY, height, depth, rgb));
+                        chunk.addBlockByLocal(x, y, new UnderwaterBlock(blockGlobalX, blockGlobalY, height, depth, blockType));
                         break;
                     }
 
-                    chunk.addBlockByLocal(x, y, new Block(blockGlobalX, blockGlobalY, height, rgb));
+                    chunk.addBlockByLocal(x, y, new Block(blockGlobalX, blockGlobalY, height, blockType));
                     break;
                 }
             }

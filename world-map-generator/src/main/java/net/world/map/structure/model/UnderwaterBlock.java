@@ -3,8 +3,8 @@ package net.world.map.structure.model;
 public class UnderwaterBlock extends Block {
     public int depth;
 
-    public UnderwaterBlock(int x, int y, int height, int depth, int rgb) {
-        super(x, y, height, rgb);
+    public UnderwaterBlock(int x, int y, int height, int depth, String blockType) {
+        super(x, y, height, blockType);
         this.depth = depth;
     }
 

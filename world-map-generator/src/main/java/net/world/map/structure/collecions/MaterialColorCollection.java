@@ -1,10 +1,10 @@
 package net.world.map.structure.collecions;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
-public class MaterialColorsCollection {
-    public static final Map<String, Integer> BLOCK_COLORS = new LinkedHashMap<>();
+public class MaterialColorCollection {
+    public static final Map<String, Integer> BLOCK_COLORS = new HashMap<>();
 
     static {
         BLOCK_COLORS.put(MaterialCollection.CHERRY_LEAVES, -86334);
@@ -400,8 +400,6 @@ public class MaterialColorsCollection {
         BLOCK_COLORS.put(MaterialCollection.LAVA, 13916690);
         BLOCK_COLORS.put(MaterialCollection.LAVA_CAULDRON, 4868426);
         BLOCK_COLORS.put(MaterialCollection.LECTERN, 11438419);
-
-
         BLOCK_COLORS.put(MaterialCollection.LIGHT_BLUE_BED, 3846105);
         BLOCK_COLORS.put(MaterialCollection.LIGHT_BLUE_CANDLE, 2329541);
         BLOCK_COLORS.put(MaterialCollection.LIGHT_BLUE_CANDLE_CAKE, 2329541);
@@ -749,7 +747,6 @@ public class MaterialColorsCollection {
         BLOCK_COLORS.put(MaterialCollection.SPAWNER, 2436928);
         BLOCK_COLORS.put(MaterialCollection.SPONGE, 12894539);
         BLOCK_COLORS.put(MaterialCollection.SPORE_BLOSSOM, 13919140);
-
         BLOCK_COLORS.put(MaterialCollection.SPRUCE_DOOR, 6967344);
         BLOCK_COLORS.put(MaterialCollection.SPRUCE_FENCE, 7558449);
         BLOCK_COLORS.put(MaterialCollection.SPRUCE_FENCE_GATE, 7558449);
@@ -891,7 +888,9 @@ public class MaterialColorsCollection {
         BLOCK_COLORS.put(MaterialCollection.FERN, -16745472);
         BLOCK_COLORS.put(MaterialCollection.LARGE_FERN, -16745472);
         BLOCK_COLORS.put(MaterialCollection.KELP, -16745472);
+        BLOCK_COLORS.put(MaterialCollection.KELP_PLANT, -16745472);
         BLOCK_COLORS.put(MaterialCollection.WHEAT, -2574531);
+        BLOCK_COLORS.put(MaterialCollection.FARMLAND, -5940693);
     }
 
     public static int getColor(String blockType) {
