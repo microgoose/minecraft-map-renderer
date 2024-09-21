@@ -140,7 +140,6 @@ public class SolidBlockCollection {
         NOT_SOLID_BLOCKS.add(MaterialCollection.POTTED_DARK_OAK_SAPLING);
         NOT_SOLID_BLOCKS.add(MaterialCollection.BAMBOO_SAPLING);
         NOT_SOLID_BLOCKS.add(MaterialCollection.CRIMSON_FUNGUS);
-        //TODO add and mark all blocks
     }
 
     public static boolean isNotSolid(String blockType) {
