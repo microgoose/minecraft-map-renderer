@@ -4,6 +4,7 @@ import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
 import net.world.map.structure.collecions.MaterialCollection;
+import net.world.map.structure.collecions.PlantBlockCollection;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.SectionConfig;
 import net.world.map.structure.config.WorldConfig;
@@ -63,13 +64,12 @@ public class ChunkParser {
                     if (!MaterialCollection.contains(blockType))
                         throw new RuntimeException("Unknown block type: " + blockType);
 
-                    if (blockType.equals(MaterialCollection.WATER)) {
+                    if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
+                        continue;
+                    if (blockType.equals(MaterialCollection.WATER) || PlantBlockCollection.isWaterPlant(blockType)) {
                         depth++;
                         continue;
                     }
-
-                    if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
-                        continue;
 
                     int blockGlobalX = startBlockX + x;
                     int blockGlobalY = startBlockY + y;
