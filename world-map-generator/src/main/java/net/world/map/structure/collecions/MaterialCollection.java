@@ -1,6 +1,34 @@
 package net.world.map.structure.collecions;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashSet;
+import java.util.Set;
+
 public class MaterialCollection {
+    public static final Set<String> materials = new HashSet<>();
+
+    static {
+        Field[] fields = MaterialCollection.class.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers()) && field.getType() == String.class) {
+                try {
+                    String value = (String) field.get(null);
+                    if (value != null) {
+                        materials.add(value);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    public static boolean contains(String material) {
+        return materials.contains(material);
+    }
+
     public static final String AIR = "air";
     public static final String STONE = "stone";
     public static final String GRANITE = "granite";

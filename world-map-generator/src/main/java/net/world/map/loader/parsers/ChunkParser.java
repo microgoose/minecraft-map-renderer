@@ -60,6 +60,9 @@ public class ChunkParser {
                     SectionParser sectionParser = sections.get(sectionHeightPos);
                     String blockType = sectionParser.getBlockType(x, height, y);
 
+                    if (!MaterialCollection.contains(blockType))
+                        throw new RuntimeException("Unknown block type: " + blockType);
+
                     if (blockType.equals(MaterialCollection.WATER)) {
                         depth++;
                         continue;
