@@ -1087,4 +1087,5 @@ public class MaterialCollection {
     public static final String DECORATED_POT = "decorated_pot";
     public static final String CRAFTER = "crafter";
     public static final String TRIAL_SPAWNER = "trial_spawner";
+    public static final String VAULT = "vault";
 }
