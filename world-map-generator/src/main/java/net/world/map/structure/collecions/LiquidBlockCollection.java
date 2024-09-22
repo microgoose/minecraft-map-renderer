@@ -1,17 +1,14 @@
 package net.world.map.structure.collecions;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.EnumSet;
 
 public class LiquidBlockCollection {
-    public static final Set<String> LIQUID_BLOCKS = new HashSet<>();
+    public static final EnumSet<BlockType> LIQUID_BLOCKS = EnumSet.of(
+        BlockType.WATER,
+        BlockType.LAVA
+    );
 
-    static {
-        LIQUID_BLOCKS.add(MaterialCollection.WATER);
-        LIQUID_BLOCKS.add(MaterialCollection.LAVA);
-    }
-
-    public static boolean isLiquid(String blockType) {
-        return LIQUID_BLOCKS.contains(blockType);
+    public static boolean isLiquid(BlockType type) {
+        return LIQUID_BLOCKS.contains(type);
     }
 }

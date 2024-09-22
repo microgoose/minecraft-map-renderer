@@ -3,13 +3,15 @@ package net.world.map.loader.parsers;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.util.MCAMath;
-import net.world.map.structure.collecions.MaterialCollection;
+import net.world.map.structure.collecions.BlockType;
 
 import java.util.Arrays;
 
 public class SectionParser {
+    private static final String prefix = "minecraft:";
+    private static final int prefixLength = prefix.length();
     private final int sectionY;
-    private final String[] blockPalette;
+    private final BlockType[] blockPalette;
     private long[] blocks;
     private final int bitsPerBlock;
 
@@ -17,12 +19,12 @@ public class SectionParser {
         CompoundTag blockStatesTag = sectionTag.getCompoundTag("block_states");
         ListTag<CompoundTag> paletteTag = blockStatesTag.getListTag("palette").asCompoundTagList();
         this.sectionY = sectionTag.getByte("Y");
-        this.blockPalette = new String[paletteTag.size()];
+        this.blockPalette = new BlockType[paletteTag.size()];
 
         for (int i = 0; i < this.blockPalette.length; i++) {
             CompoundTag entry = paletteTag.get(i);
             String id = entry.getString("Name");
-            this.blockPalette[i] = id.replaceAll("minecraft:", "");
+            this.blockPalette[i] = BlockType.valueOf(id.substring(prefixLength).toUpperCase());
         }
 
         this.blocks = blockStatesTag.getLongArray("data");
@@ -37,20 +39,20 @@ public class SectionParser {
         return sectionY;
     }
 
-    public String getBlockType(int x, int y, int z) {
+    public BlockType getBlockType(int x, int y, int z) {
         if (blockPalette.length == 1) {
             return blockPalette[0];
         }
 
         if (blocks.length == 0) {
-            return MaterialCollection.AIR;
+            return BlockType.AIR;
         }
 
         int blockIndex = ((y & 0xF) << 8) + ((z & 0xF) << 4) + (x & 0xF);
         long value = MCAMath.getValueFromLongArray(blocks, blockIndex, bitsPerBlock);
 
         if (value >= blockPalette.length) {
-            return MaterialCollection.AIR;
+            return BlockType.AIR;
         }
 
         return blockPalette[(int) value];

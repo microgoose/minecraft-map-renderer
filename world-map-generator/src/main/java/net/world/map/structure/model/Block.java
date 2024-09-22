@@ -1,12 +1,14 @@
 package net.world.map.structure.model;
 
+import net.world.map.structure.collecions.BlockType;
+
 public class Block {
     public final int x;
     public final int y;
     public final short height;
-    public final String blockType;
+    public final BlockType blockType;
 
-    public Block(int x, int y, short height, String blockType) {
+    public Block(int x, int y, short height, BlockType blockType) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -25,7 +27,7 @@ public class Block {
         return height;
     }
 
-    public String getBlockType() {
+    public BlockType getBlockType() {
         return blockType;
     }
 }

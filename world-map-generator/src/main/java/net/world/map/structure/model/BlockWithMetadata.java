@@ -1,5 +1,6 @@
 package net.world.map.structure.model;
 
+import net.world.map.structure.collecions.BlockType;
 import net.world.map.structure.model.metadata.BlockMeta;
 
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 public class BlockWithMetadata extends Block {
     private final Map<Class<? extends BlockMeta>, BlockMeta> metadata;
 
-    public BlockWithMetadata(int x, int y, short height, String blockType,
+    public BlockWithMetadata(int x, int y, short height, BlockType blockType,
                              Map<Class<? extends BlockMeta>, BlockMeta> metadata) {
         super(x, y, height, blockType);
         this.metadata = metadata;

@@ -3,7 +3,7 @@ package net.world.map.loader.parsers;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
-import net.world.map.structure.collecions.MaterialCollection;
+import net.world.map.structure.collecions.BlockType;
 import net.world.map.structure.collecions.PlantBlockCollection;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.SectionConfig;
@@ -18,7 +18,6 @@ import net.world.map.structure.model.metadata.UnderwaterMeta;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 
 public class ChunkParser {
     public static Optional<Chunk> parse(CompoundTag chunkTag) {
@@ -33,7 +32,7 @@ public class ChunkParser {
         }
 
         ListTag<CompoundTag> sectionsTags = chunkTag.getListTag("sections").asCompoundTagList();
-        TreeMap<Integer, SectionParser> sections = new TreeMap<>();
+        HashMap<Integer, SectionParser> sections = new HashMap<>();
 
         for (CompoundTag sectionTag : sectionsTags) {
             if (!sectionTag.getCompoundTag("block_states").containsKey("data"))
@@ -64,14 +63,12 @@ public class ChunkParser {
                         continue;
 
                     SectionParser sectionParser = sections.get(sectionHeightPos);
-                    String blockType = sectionParser.getBlockType(x, height, y);
+                    BlockType blockType = sectionParser.getBlockType(x, height, y);
 
-                    if (!MaterialCollection.contains(blockType))
-                        throw new RuntimeException("Unknown block type: " + blockType);
                     if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
                         continue;
 
-                    if (blockType.equals(MaterialCollection.WATER) || PlantBlockCollection.isWaterPlant(blockType)) {
+                    if (blockType.equals(BlockType.WATER) || PlantBlockCollection.isWaterPlant(blockType)) {
                         UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
 
                         if (meta == null)

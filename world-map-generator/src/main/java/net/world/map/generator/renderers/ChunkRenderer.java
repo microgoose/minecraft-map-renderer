@@ -1,6 +1,6 @@
 package net.world.map.generator.renderers;
 
-import net.world.map.structure.collecions.MaterialCollection;
+import net.world.map.structure.collecions.BlockType;
 import net.world.map.structure.collecions.MaterialColorCollection;
 import net.world.map.structure.collecions.PlantBlockCollection;
 import net.world.map.structure.config.ChunkConfig;
@@ -56,7 +56,7 @@ public class ChunkRenderer {
                     UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
                     short depth = meta.getDepth();
                     double heightDiff = (double) depth * 0.1D + (double) (x + y & 1) * 0.2D;
-                    color = MaterialColorCollection.getColor(MaterialCollection.WATER);
+                    color = MaterialColorCollection.getColor(BlockType.WATER);
 
                     if (heightDiff < 0.5D) {
                         brightness = 0x00;
