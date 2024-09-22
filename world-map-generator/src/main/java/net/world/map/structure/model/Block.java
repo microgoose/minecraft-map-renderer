@@ -3,10 +3,10 @@ package net.world.map.structure.model;
 public class Block {
     public final int x;
     public final int y;
-    public final int height;
+    public final short height;
     public final String blockType;
 
-    public Block(int x, int y, int height, String blockType) {
+    public Block(int x, int y, short height, String blockType) {
         this.x = x;
         this.y = y;
         this.height = height;

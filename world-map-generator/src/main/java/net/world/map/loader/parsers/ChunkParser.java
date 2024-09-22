@@ -38,8 +38,8 @@ public class ChunkParser {
             sections.put(sectionParser.getSectionY(), sectionParser);
         }
 
-        int maxHeight = WorldConfig.MAX_HEIGHT;
-        int minHeight = WorldConfig.MIN_HEIGHT;
+        short maxHeight = WorldConfig.MAX_HEIGHT;
+        short minHeight = WorldConfig.MIN_HEIGHT;
         int chunkX = chunkTag.getInt("xPos");
         int chunkY = chunkTag.getInt("zPos");
 
@@ -52,7 +52,7 @@ public class ChunkParser {
             for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
                 int depth = 0;
 
-                for (int height = maxHeight; height > minHeight; height--) {
+                for (short height = maxHeight; height > minHeight; height--) {
                     int sectionHeightPos = Math.floorDiv(height, SectionConfig.SECTION_HEIGHT);
 
                     if (!sections.containsKey(sectionHeightPos))

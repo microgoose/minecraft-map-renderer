@@ -29,14 +29,13 @@ public class ChunkRenderer {
             for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
                 Block block = chunk.getBlockByLocal(x, y);
 
-                int blockHeight = block.getHeight();
+                int height = block.getHeight();
                 int brightness;
-                int color = MaterialColorCollection.getColor(block.getBlockType());
+                int color;
 
                 if (block instanceof UnderwaterBlock underwaterBlock) {
                     int depth = underwaterBlock.getDepth();
                     double heightDiff = (double) depth * 0.1D + (double) (x + y & 1) * 0.2D;
-
                     color = MaterialColorCollection.getColor(MaterialCollection.WATER);
 
                     if (heightDiff < 0.5D) {
@@ -47,7 +46,8 @@ public class ChunkRenderer {
                         brightness = 0x22;
                     }
                 } else {
-                    double heightDiff = (blockHeight - lastBlockHeight) * 4.0D / (double) (1 + 4) + ((double) (x + y & 1) - 0.5D) * 0.4D;
+                    double heightDiff = (height - lastBlockHeight) * 4.0D / (double) (1 + 4) + ((double) (x + y & 1) - 0.5D) * 0.4D;
+                    color = MaterialColorCollection.getColor(block.getBlockType());
 
                     if (heightDiff > 0.6D) {
                         brightness = 0;
