@@ -2,12 +2,14 @@ package net.world.map.generator.renderers;
 
 import net.world.map.structure.collecions.MaterialCollection;
 import net.world.map.structure.collecions.MaterialColorCollection;
+import net.world.map.structure.collecions.PlantBlockCollection;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.Chunk;
 import net.world.map.structure.model.World;
 import net.world.map.structure.model.metadata.BlockMeta;
+import net.world.map.structure.model.metadata.PlantMeta;
 import net.world.map.structure.model.metadata.UnderwaterMeta;
 import net.world.map.structure.util.Colors;
 
@@ -41,6 +43,14 @@ public class ChunkRenderer {
                 int height = block.getHeight();
                 int brightness;
                 int color = MaterialColorCollection.getColor(block.getBlockType());
+
+                if (metadata.containsKey(PlantMeta.class)) {
+                    PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
+
+                    if (!PlantBlockCollection.isGrassPlant(meta.getPlantType())) {
+                        color = MaterialColorCollection.getColor(meta.getPlantType());
+                    }
+                }
 
                 if (metadata.containsKey(UnderwaterMeta.class)) {
                     UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
