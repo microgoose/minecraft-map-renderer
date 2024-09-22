@@ -4,12 +4,16 @@ import net.world.map.structure.collecions.MaterialCollection;
 import net.world.map.structure.collecions.MaterialColorCollection;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.model.Block;
+import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.Chunk;
-import net.world.map.structure.model.UnderwaterBlock;
 import net.world.map.structure.model.World;
+import net.world.map.structure.model.metadata.BlockMeta;
+import net.world.map.structure.model.metadata.UnderwaterMeta;
 import net.world.map.structure.util.Colors;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChunkRenderer {
     public static BufferedImage render(World world, Chunk chunk) {
@@ -28,13 +32,19 @@ public class ChunkRenderer {
 
             for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
                 Block block = chunk.getBlockByLocal(x, y);
+                Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
+
+                if (block instanceof BlockWithMetadata blockWithMetadata) {
+                    metadata = blockWithMetadata.getMetadata();
+                }
 
                 int height = block.getHeight();
                 int brightness;
-                int color;
+                int color = MaterialColorCollection.getColor(block.getBlockType());
 
-                if (block instanceof UnderwaterBlock underwaterBlock) {
-                    int depth = underwaterBlock.getDepth();
+                if (metadata.containsKey(UnderwaterMeta.class)) {
+                    UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
+                    short depth = meta.getDepth();
                     double heightDiff = (double) depth * 0.1D + (double) (x + y & 1) * 0.2D;
                     color = MaterialColorCollection.getColor(MaterialCollection.WATER);
 
@@ -47,7 +57,6 @@ public class ChunkRenderer {
                     }
                 } else {
                     double heightDiff = (height - lastBlockHeight) * 4.0D / (double) (1 + 4) + ((double) (x + y & 1) - 0.5D) * 0.4D;
-                    color = MaterialColorCollection.getColor(block.getBlockType());
 
                     if (heightDiff > 0.6D) {
                         brightness = 0;
