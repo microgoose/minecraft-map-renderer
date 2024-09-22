@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class ChunkParser {
+    private static final short sectionMinY = -4;
+
     public static Optional<Chunk> parse(CompoundTag chunkTag) {
         int version = chunkTag.getInt("DataVersion");
 
@@ -32,15 +34,7 @@ public class ChunkParser {
         }
 
         ListTag<CompoundTag> sectionsTags = chunkTag.getListTag("sections").asCompoundTagList();
-        HashMap<Integer, SectionParser> sections = new HashMap<>();
-
-        for (CompoundTag sectionTag : sectionsTags) {
-            if (!sectionTag.getCompoundTag("block_states").containsKey("data"))
-                continue;
-
-            SectionParser sectionParser = new SectionParser(sectionTag);
-            sections.put(sectionParser.getSectionY(), sectionParser);
-        }
+        SectionParser[] sections = parseSections(sectionsTags);
 
         short maxHeight = WorldConfig.MAX_HEIGHT;
         short minHeight = WorldConfig.MIN_HEIGHT;
@@ -57,12 +51,12 @@ public class ChunkParser {
                 Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
 
                 for (short height = maxHeight; height > minHeight; height--) {
-                    int sectionHeightPos = Math.floorDiv(height, SectionConfig.SECTION_HEIGHT);
+                    int sectionIndex = Math.floorDiv(height, SectionConfig.SECTION_HEIGHT) - sectionMinY;
 
-                    if (!sections.containsKey(sectionHeightPos))
+                    if (sections[sectionIndex] == null)
                         continue;
 
-                    SectionParser sectionParser = sections.get(sectionHeightPos);
+                    SectionParser sectionParser = sections[sectionIndex];
                     BlockType blockType = sectionParser.getBlockType(x, height, y);
 
                     if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
@@ -106,5 +100,21 @@ public class ChunkParser {
         }
 
         return Optional.of(chunk);
+    }
+
+    private static SectionParser[] parseSections(ListTag<CompoundTag> sectionsTags) {
+        SectionParser[] sections = new SectionParser[sectionsTags.size()];
+
+        for (int i = 0; i < sections.length; i++) {
+            CompoundTag sectionTag = sectionsTags.get(i);
+
+            if (!sectionTag.getCompoundTag("block_states").containsKey("data"))
+                continue;
+
+            SectionParser sectionParser = new SectionParser(sectionTag);
+            sections[sectionParser.getSectionY() - sectionMinY] = sectionParser;
+        }
+
+        return sections;
     }
 }
