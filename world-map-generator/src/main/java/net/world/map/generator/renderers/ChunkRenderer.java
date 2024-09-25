@@ -14,21 +14,16 @@ import net.world.map.structure.model.metadata.PlantMeta;
 import net.world.map.structure.model.metadata.UnderwaterMeta;
 import net.world.map.structure.util.Colors;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ChunkRenderer {
     public static BufferedImage render(World world, Chunk chunk) {
         int blockWidth = RenderConfig.RENDER_SCALE;
         int blockHeight = RenderConfig.RENDER_SCALE;
-        BufferedImage chunkImage = new BufferedImage(
-            ChunkConfig.CHUNK_SIZE * blockWidth,
-            ChunkConfig.CHUNK_SIZE * blockHeight,
-            BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D g2d = chunkImage.createGraphics();
+        int imageWidth = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+        int imageHeight = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+        int[] pixels = new int[imageWidth * imageHeight];
 
         for (int x = 0; x < ChunkConfig.CHUNK_SIZE; x++) {
             Block chunkBlockX = chunk.getBlockByLocal(x, 0);
@@ -38,33 +33,64 @@ public class ChunkRenderer {
                 aboveChunkBlockX = chunkBlockX;
             }
 
-            double lastBlockHeight = aboveChunkBlockX.getHeight();
+            double prevHeight = aboveChunkBlockX.getHeight();
 
             for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
                 Block block = chunk.getBlockByLocal(x, y);
-                Color color = getColor(block, lastBlockHeight, x, y);
+                int color = MaterialColorCollection.getColor(block.getBlockType());
 
-                g2d.setColor(color);
-                g2d.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight);
-                lastBlockHeight = block.height;
+                if (block instanceof BlockWithMetadata blockWithMetadata) {
+                    color = modifyColorByMetadata(blockWithMetadata, prevHeight, x, y, color);
+                } else {
+                    color = modifyColorByHeight(x, y, block.getHeight(), prevHeight, color);
+                }
+
+                fillRect(x * blockWidth, y * blockHeight,
+                        blockWidth, blockHeight, pixels, color, imageWidth);
+
+                prevHeight = block.height;
             }
         }
 
-        g2d.dispose();
+        BufferedImage chunkImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        chunkImage.setRGB(0, 0, imageWidth, imageHeight, pixels, 0, imageWidth);
 
         return chunkImage;
     }
 
-    public static Color getColor(Block block, double lastBlockHeight, int x, int y) {
-        Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
+    private static void fillRect(int startX, int startY, int blockWidth,
+                                int blockHeight, int[] pixels, int color, int imageWidth) {
+        for (int y = 0; y < blockHeight; y++) {
+            for (int x = 0; x < blockWidth; x++) {
+                int pixelX = startX + x;
+                int pixelY = startY + y;
+                int index = pixelY * imageWidth + pixelX;
 
-        if (block instanceof BlockWithMetadata blockWithMetadata) {
-            metadata = blockWithMetadata.getMetadata();
+                // Убедимся, что не выходим за границы массива
+                if (index >= 0 && index < pixels.length) {
+                    pixels[index] = color;
+                }
+            }
+        }
+    }
+
+    private static int modifyColorByHeight(int x, int y, int height, double prevHeight, int color) {
+        int brightness;
+        double heightDiff = (height - prevHeight) * 4.0D / (double) (1 + 4) + ((double) (x + y & 1) - 0.5D) * 0.4D;
+
+        if (heightDiff > 0.6D) {
+            brightness = 0;
+        } else if (heightDiff < -0.6D) {
+            brightness = 68;
+        } else {
+            brightness = 34;
         }
 
-        int height = block.getHeight();
-        int brightness;
-        int color = MaterialColorCollection.getColor(block.getBlockType());
+        return Colors.blend(brightness << 24, Colors.setAlpha(255, color));
+    }
+
+    private static int modifyColorByMetadata(BlockWithMetadata block, double prevHeight, int x, int y, int color) {
+        Map<Class<? extends BlockMeta>, BlockMeta> metadata = block.getMetadata();
 
         if (metadata.containsKey(PlantMeta.class)) {
             PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
@@ -75,6 +101,8 @@ public class ChunkRenderer {
         }
 
         if (metadata.containsKey(UnderwaterMeta.class)) {
+            int brightness;
+
             UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
             short depth = meta.getDepth();
             double heightDiff = (double) depth * 0.1D + (double) (x + y & 1) * 0.2D;
@@ -87,23 +115,10 @@ public class ChunkRenderer {
             } else {
                 brightness = 0x22;
             }
-        } else {
-            double heightDiff = (height - lastBlockHeight) * 4.0D / (double) (1 + 4) + ((double) (x + y & 1) - 0.5D) * 0.4D;
 
-            if (heightDiff > 0.6D) {
-                brightness = 0;
-            } else if (heightDiff < -0.6D) {
-                brightness = 68;
-            } else {
-                brightness = 34;
-            }
+            return Colors.blend(brightness << 24, Colors.setAlpha(255, color));
         }
 
-        int rgba = Colors.blend(brightness << 24, Colors.setAlpha(255, color));
-        int r =  rgba >> 16 & 0xFF;
-        int g = rgba >> 8 & 0xFF;
-        int b = rgba & 0xFF;
-
-        return new Color(r, g, b);
+        return modifyColorByHeight(x, y, block.getHeight(), prevHeight, color);
     }
 }
