@@ -1,5 +1,6 @@
 package net.world.map.generator.renderers;
 
+import net.world.map.generator.config.RenderConfig;
 import net.world.map.structure.model.Point;
 import net.world.map.structure.model.Region;
 import net.world.map.structure.model.World;
@@ -11,7 +12,11 @@ import java.util.Map;
 
 public class WorldRenderer {
     public static BufferedImage render(World world) {
-        BufferedImage worldMapImage = new BufferedImage(world.getWidth(), world.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage worldMapImage = new BufferedImage(
+            world.getWidth() * RenderConfig.RENDER_SCALE,
+            world.getHeight() * RenderConfig.RENDER_SCALE,
+            BufferedImage.TYPE_INT_ARGB
+        );
         Graphics2D graphics = worldMapImage.createGraphics();
 
         graphics.setColor(Color.BLACK);
