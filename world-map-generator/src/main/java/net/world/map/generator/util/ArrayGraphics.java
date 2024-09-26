@@ -8,10 +8,7 @@ public class ArrayGraphics {
                 int pixelX = startX + x;
                 int pixelY = startY + y;
                 int index = pixelY * imageWidth + pixelX;
-
-                if (index >= 0 && index < pixels.length) {
-                    pixels[index] = color;
-                }
+                pixels[index] = color;
             }
         }
     }
@@ -23,11 +20,8 @@ public class ArrayGraphics {
                 int pixelX = startX + x;
                 int pixelY = startY + y;
                 int index = pixelY * imageWidth + pixelX;
-
-                if (index >= 0 && index < pixels.length) {
-                    int colorIndex = x % colors.length;
-                    pixels[index] = colors[colorIndex];
-                }
+                int colorIndex = x % colors.length;
+                pixels[index] = colors[colorIndex];
             }
         }
     }

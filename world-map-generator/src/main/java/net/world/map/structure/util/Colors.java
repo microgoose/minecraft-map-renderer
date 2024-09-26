@@ -34,4 +34,17 @@ public class Colors {
         double b = (blue(color0) * a0 + blue(color1) * a1 * (1 - a0)) / a;
         return argb((int) a * 0xFF, (int) r, (int) g, (int) b);
     }
+
+    public static int adjustBrightness(int argb, int amount) {
+        int alpha = alpha(argb);
+        int red = red(argb) + amount;
+        int green = green(argb) + amount;
+        int blue = blue(argb) + amount;
+
+        red = Math.min(255, Math.max(0, red));
+        green = Math.min(255, Math.max(0, green));
+        blue = Math.min(255, Math.max(0, blue));
+
+        return argb(alpha, red, green, blue);
+    }
 }

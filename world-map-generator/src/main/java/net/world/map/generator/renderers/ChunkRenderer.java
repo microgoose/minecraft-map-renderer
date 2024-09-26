@@ -18,23 +18,11 @@ public class ChunkRenderer {
         int[] pixels = new int[imageWidth * imageHeight];
 
         for (int x = 0; x < ChunkConfig.CHUNK_SIZE; x++) {
-            Block chunkBlockX = chunk.getBlockByLocal(x, 0);
-            Block aboveChunkBlockX = world.getBlockAt(chunkBlockX.getX(), chunkBlockX.getY() - 1);
-
-            if (aboveChunkBlockX == null) {
-                aboveChunkBlockX = chunkBlockX;
-            }
-
-            double prevHeight = aboveChunkBlockX.getHeight();
-
             for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
                 Block block = chunk.getBlockByLocal(x, y);
-                BlockRenderer renderer = new BlockRenderer(x, y, prevHeight, block);
 
                 ArrayGraphics.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight,
-                        pixels, renderer.render(), imageWidth);
-
-                prevHeight = block.height;
+                        pixels, BlockRenderer.render(world, block), imageWidth);
             }
         }
 
