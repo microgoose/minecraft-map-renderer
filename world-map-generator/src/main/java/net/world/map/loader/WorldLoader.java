@@ -32,7 +32,6 @@ public class WorldLoader {
         for (File regionFile : regionFiles) {
             Optional<Region> regionOpt = RegionParser.parse(regionFile);
             regionOpt.ifPresent(world::addRegion);
-            break;
         }
 
         return world;
