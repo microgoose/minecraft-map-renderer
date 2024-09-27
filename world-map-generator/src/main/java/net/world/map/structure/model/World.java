@@ -17,9 +17,8 @@ public class World {
     public Block getBlockAt(int x, int y) {
         Region region = getRegionAt(x, y);
 
-        if (region == null) {
+        if (region == null)
             return null;
-        }
 
         return region.getBlockAt(x, y);
     }
