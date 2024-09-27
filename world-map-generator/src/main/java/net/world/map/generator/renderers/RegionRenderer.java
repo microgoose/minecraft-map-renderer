@@ -1,42 +1,39 @@
 package net.world.map.generator.renderers;
 
 import net.world.map.generator.config.RenderConfig;
+import net.world.map.generator.util.ArrayGraphics;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.RegionConfig;
 import net.world.map.structure.model.Chunk;
 import net.world.map.structure.model.Region;
 import net.world.map.structure.model.World;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
 public class RegionRenderer {
     public static BufferedImage render(World world, Region region) {
-        BufferedImage regionMapImage = new BufferedImage(
-            RegionConfig.REGION_AREA * RenderConfig.RENDER_SCALE,
-            RegionConfig.REGION_AREA * RenderConfig.RENDER_SCALE,
-            BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D graphics = regionMapImage.createGraphics();
-
-        graphics.setColor(Color.RED);
+        int chunkWidth = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+        int chunkHeight = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+        int imageWidth = RegionConfig.REGION_SIZE * chunkWidth;
+        int imageHeight = RegionConfig.REGION_SIZE * chunkHeight;
+        int[] pixels = new int[imageHeight * imageWidth];
 
         for (Map.Entry<Integer, Chunk> entry : region.getChunks().entrySet()) {
             Chunk chunk = entry.getValue();
-            BufferedImage chunkMapImage = ChunkRenderer.render(world, chunk);
 
+            int[] chunkPixels = ChunkRenderer.render(world, chunk);
             int chunkLocalX = Math.floorDiv(entry.getKey(), RegionConfig.REGION_SIZE);
             int chunkLocalY = Math.floorMod(entry.getKey(), RegionConfig.REGION_SIZE);
-            int xPos = chunkLocalX * ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
-            int yPos = chunkLocalY * ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+            int startX = chunkLocalX * chunkWidth;
+            int startY = chunkLocalY * chunkHeight;
 
-            graphics.drawImage(chunkMapImage, xPos, yPos, null);
-//            graphics.drawRect(xPos, yPos, ChunkConfig.CHUNK_SIZE, ChunkConfig.CHUNK_SIZE);
+            ArrayGraphics.fillRect(startX, startY, chunkWidth, chunkHeight, pixels, chunkPixels, imageWidth);
         }
 
-        graphics.dispose();
+        BufferedImage regionImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        regionImage.setRGB(0, 0, imageWidth, imageHeight, pixels, 0, imageWidth);
 
-        return regionMapImage;
+        return regionImage;
     }
 }

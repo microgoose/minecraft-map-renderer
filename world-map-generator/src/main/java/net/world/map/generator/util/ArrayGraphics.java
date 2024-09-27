@@ -20,8 +20,8 @@ public class ArrayGraphics {
                 int pixelX = startX + x;
                 int pixelY = startY + y;
                 int index = pixelY * imageWidth + pixelX;
-                int colorIndex = x % colors.length;
-                pixels[index] = colors[colorIndex];
+                int sourceIndex = y * width + x;
+                pixels[index] = colors[sourceIndex];
             }
         }
     }
