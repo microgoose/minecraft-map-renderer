@@ -4,10 +4,12 @@ import net.world.map.generator.config.RenderConfig;
 import net.world.map.generator.util.ArrayGraphics;
 import net.world.map.structure.collecions.BlockType;
 import net.world.map.structure.collecions.MaterialColorCollection;
+import net.world.map.structure.collecions.PlantBlockCollection;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.World;
 import net.world.map.structure.model.metadata.BlockMeta;
+import net.world.map.structure.model.metadata.PlantMeta;
 import net.world.map.structure.model.metadata.UnderwaterMeta;
 import net.world.map.structure.util.Colors;
 
@@ -34,7 +36,16 @@ public class BlockRenderer {
     private static void drawByMetaData(World world, BlockWithMetadata block, int[] pixels, int baseColor) {
         Map<Class<? extends BlockMeta>, BlockMeta> metadata = block.getMetadata();
 
-        //TODO add plants
+        if (metadata.containsKey(PlantMeta.class)) {
+            PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
+            BlockType plantType = plantMeta.getPlantType();
+
+            if (!PlantBlockCollection.isGrassPlant(plantType)) {
+                int plantColor = MaterialColorCollection.getColor(plantMeta.getPlantType());
+                int startX = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
+                pixels[startX * RenderConfig.RENDER_SCALE + startX] = plantColor;
+            }
+        }
 
         if (metadata.containsKey(UnderwaterMeta.class)) {
             int brightness;
@@ -53,7 +64,8 @@ public class BlockRenderer {
             }
 
             baseColor = Colors.blend(brightness << 24, baseColor);
-            ArrayGraphics.fillRect(0, 0, RenderConfig.RENDER_SCALE, RenderConfig.RENDER_SCALE, pixels, baseColor, RenderConfig.RENDER_SCALE);
+            ArrayGraphics.fillRect(0, 0, RenderConfig.RENDER_SCALE, RenderConfig.RENDER_SCALE,
+                    pixels, baseColor, RenderConfig.RENDER_SCALE);
             return;
         }
 
