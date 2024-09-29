@@ -42,8 +42,8 @@ public class BlockRenderer {
 
             if (!PlantBlockCollection.isGrassPlant(plantType)) {
                 int plantColor = MaterialColorCollection.getColor(plantMeta.getPlantType());
-                int startX = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
-                pixels[startX * RenderConfig.RENDER_SCALE + startX] = plantColor;
+                int centerPos = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
+                pixels[centerPos * RenderConfig.RENDER_SCALE + centerPos] = plantColor;
             }
         }
 
