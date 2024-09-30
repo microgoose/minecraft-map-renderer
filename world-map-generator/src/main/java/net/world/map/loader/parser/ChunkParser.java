@@ -1,10 +1,10 @@
-package net.world.map.loader.parsers;
+package net.world.map.loader.parser;
 
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
-import net.world.map.structure.collecions.BlockType;
-import net.world.map.structure.collecions.PlantBlockCollection;
+import net.world.map.structure.collection.BlockType;
+import net.world.map.structure.collection.PlantBlockCollection;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.SectionConfig;
 import net.world.map.structure.config.WorldConfig;

@@ -1,9 +1,9 @@
-package net.world.map.loader.parsers;
+package net.world.map.loader.parser;
 
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.util.MCAMath;
-import net.world.map.structure.collecions.BlockType;
+import net.world.map.structure.collection.BlockType;
 
 import java.util.Arrays;
 

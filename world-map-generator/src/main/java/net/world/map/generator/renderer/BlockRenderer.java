@@ -1,10 +1,10 @@
-package net.world.map.generator.renderers;
+package net.world.map.generator.renderer;
 
 import net.world.map.generator.config.RenderConfig;
 import net.world.map.generator.util.ArrayGraphics;
-import net.world.map.structure.collecions.BlockType;
-import net.world.map.structure.collecions.MaterialColorCollection;
-import net.world.map.structure.collecions.PlantBlockCollection;
+import net.world.map.structure.collection.BlockType;
+import net.world.map.structure.collection.MaterialColorCollection;
+import net.world.map.structure.collection.PlantBlockCollection;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.World;

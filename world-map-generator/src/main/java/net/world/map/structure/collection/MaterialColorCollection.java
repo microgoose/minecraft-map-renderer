@@ -1,4 +1,4 @@
-package net.world.map.structure.collecions;
+package net.world.map.structure.collection;
 
 import java.util.HashMap;
 import java.util.Map;

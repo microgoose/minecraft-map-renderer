@@ -1,6 +1,6 @@
 package net.world.map.loader;
 
-import net.world.map.loader.parsers.RegionParser;
+import net.world.map.loader.parser.RegionParser;
 import net.world.map.structure.model.Region;
 import net.world.map.structure.model.World;
 

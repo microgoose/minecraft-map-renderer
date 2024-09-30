@@ -1,4 +1,4 @@
-package net.world.map.generator.renderers;
+package net.world.map.generator.renderer;
 
 import net.world.map.generator.config.RenderConfig;
 import net.world.map.structure.model.Point;

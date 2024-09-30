@@ -1,6 +1,6 @@
 package net.world.map.structure.model;
 
-import net.world.map.structure.collecions.BlockType;
+import net.world.map.structure.collection.BlockType;
 import net.world.map.structure.model.metadata.BlockMeta;
 
 import java.util.Map;

@@ -1,6 +1,6 @@
 package net.world.map.generator;
 
-import net.world.map.generator.renderers.WorldRenderer;
+import net.world.map.generator.renderer.WorldRenderer;
 import net.world.map.loader.WorldLoader;
 import net.world.map.structure.model.World;
 

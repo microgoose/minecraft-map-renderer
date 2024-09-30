@@ -1,4 +1,4 @@
-package net.world.map.loader.parsers;
+package net.world.map.loader.parser;
 
 import net.querz.mca.CompressionType;
 import net.querz.nbt.io.NBTInputStream;

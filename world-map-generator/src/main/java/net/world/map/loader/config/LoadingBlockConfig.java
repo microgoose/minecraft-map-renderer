@@ -1,6 +1,6 @@
 package net.world.map.loader.config;
 
-import net.world.map.structure.collecions.BlockType;
+import net.world.map.structure.collection.BlockType;
 
 import java.util.EnumSet;
 
