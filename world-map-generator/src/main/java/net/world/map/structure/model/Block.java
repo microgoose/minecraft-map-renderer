@@ -1,6 +1,6 @@
 package net.world.map.structure.model;
 
-import net.world.map.structure.registry.BlockTypes;
+import net.world.map.structure.registries.BlockTypes;
 
 public class Block {
     public final int x;

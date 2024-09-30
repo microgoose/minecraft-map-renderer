@@ -3,8 +3,6 @@ package net.world.map.loader.parser;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
-import net.world.map.structure.registry.BlockTypes;
-import net.world.map.structure.registry.PlantBlockRegistry;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.SectionConfig;
 import net.world.map.structure.config.WorldConfig;
@@ -14,6 +12,8 @@ import net.world.map.structure.model.Chunk;
 import net.world.map.structure.model.metadata.BlockMeta;
 import net.world.map.structure.model.metadata.PlantMeta;
 import net.world.map.structure.model.metadata.UnderwaterMeta;
+import net.world.map.structure.registries.BlockTypes;
+import net.world.map.structure.registries.PlantBlockRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

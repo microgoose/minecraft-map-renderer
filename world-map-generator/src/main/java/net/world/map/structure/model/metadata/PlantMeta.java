@@ -1,6 +1,6 @@
 package net.world.map.structure.model.metadata;
 
-import net.world.map.structure.registry.BlockTypes;
+import net.world.map.structure.registries.BlockTypes;
 
 public class PlantMeta extends BlockMeta {
     public short plantHeight = 1;

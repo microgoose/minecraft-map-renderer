@@ -1,16 +1,16 @@
-package net.world.map.generator.renderer;
+package net.world.map.renderer;
 
-import net.world.map.generator.config.RenderConfig;
-import net.world.map.generator.util.ArrayGraphics;
-import net.world.map.structure.registry.BlockTypes;
-import net.world.map.structure.registry.MaterialColorRegistry;
-import net.world.map.structure.registry.PlantBlockRegistry;
+import net.world.map.renderer.config.RenderConfig;
+import net.world.map.renderer.util.ArrayGraphics;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.World;
 import net.world.map.structure.model.metadata.BlockMeta;
 import net.world.map.structure.model.metadata.PlantMeta;
 import net.world.map.structure.model.metadata.UnderwaterMeta;
+import net.world.map.structure.registries.BlockTypes;
+import net.world.map.structure.registries.MaterialColorRegistry;
+import net.world.map.structure.registries.PlantBlockRegistry;
 import net.world.map.structure.util.Colors;
 
 import java.util.Map;

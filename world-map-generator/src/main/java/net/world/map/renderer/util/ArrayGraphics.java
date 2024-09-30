@@ -1,4 +1,4 @@
-package net.world.map.generator.util;
+package net.world.map.renderer.util;
 
 public class ArrayGraphics {
     public static void fillRect(int startX, int startY, int width, int height,

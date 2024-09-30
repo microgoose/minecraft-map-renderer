@@ -1,7 +1,7 @@
-package net.world.map.generator.renderer;
+package net.world.map.renderer;
 
-import net.world.map.generator.config.RenderConfig;
-import net.world.map.generator.util.ArrayGraphics;
+import net.world.map.renderer.config.RenderConfig;
+import net.world.map.renderer.util.ArrayGraphics;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.RegionConfig;
 import net.world.map.structure.model.Chunk;

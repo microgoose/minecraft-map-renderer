@@ -1,6 +1,6 @@
-package net.world.map.generator.renderer;
+package net.world.map.renderer;
 
-import net.world.map.generator.config.RenderConfig;
+import net.world.map.renderer.config.RenderConfig;
 import net.world.map.structure.model.Point;
 import net.world.map.structure.model.Region;
 import net.world.map.structure.model.World;

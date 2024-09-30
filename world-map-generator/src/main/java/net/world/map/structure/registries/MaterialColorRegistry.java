@@ -1,4 +1,4 @@
-package net.world.map.structure.registry;
+package net.world.map.structure.registries;
 
 import java.util.HashMap;
 import java.util.Map;

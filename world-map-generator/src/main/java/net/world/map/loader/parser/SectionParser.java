@@ -3,7 +3,7 @@ package net.world.map.loader.parser;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.util.MCAMath;
-import net.world.map.structure.registry.BlockTypes;
+import net.world.map.structure.registries.BlockTypes;
 
 import java.util.Arrays;
 

@@ -1,7 +1,7 @@
-package net.world.map.generator;
+package net.world.map;
 
-import net.world.map.generator.renderer.WorldRenderer;
 import net.world.map.loader.WorldLoader;
+import net.world.map.renderer.WorldRenderer;
 import net.world.map.structure.model.World;
 
 import javax.imageio.ImageIO;
@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class MapGenerator {
+public class MapLocalRenderer {
     public static World readWorld() throws IOException {
         return WorldLoader.getWorld(Path.of("world-map-generator/src/main/resources/regions"));
     }

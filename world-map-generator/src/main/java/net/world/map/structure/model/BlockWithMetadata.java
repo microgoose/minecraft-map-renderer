@@ -1,7 +1,7 @@
 package net.world.map.structure.model;
 
-import net.world.map.structure.registry.BlockTypes;
 import net.world.map.structure.model.metadata.BlockMeta;
+import net.world.map.structure.registries.BlockTypes;
 
 import java.util.Map;
 
