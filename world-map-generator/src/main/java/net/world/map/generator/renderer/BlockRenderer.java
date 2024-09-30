@@ -2,9 +2,9 @@ package net.world.map.generator.renderer;
 
 import net.world.map.generator.config.RenderConfig;
 import net.world.map.generator.util.ArrayGraphics;
-import net.world.map.structure.collection.BlockType;
-import net.world.map.structure.collection.MaterialColorCollection;
-import net.world.map.structure.collection.PlantBlockCollection;
+import net.world.map.structure.registry.BlockTypes;
+import net.world.map.structure.registry.MaterialColorRegistry;
+import net.world.map.structure.registry.PlantBlockRegistry;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.World;
@@ -20,7 +20,7 @@ public class BlockRenderer {
         int blockWidth = RenderConfig.RENDER_SCALE;
         int blockHeight = RenderConfig.RENDER_SCALE;
         int[] pixels = new int[blockWidth * blockHeight];
-        int baseColor = MaterialColorCollection.getColor(block.getBlockType());
+        int baseColor = MaterialColorRegistry.getColor(block.getBlockType());
 
         ArrayGraphics.fillRect(0, 0, blockWidth, blockHeight, pixels, baseColor, blockWidth);
 
@@ -38,10 +38,10 @@ public class BlockRenderer {
 
         if (metadata.containsKey(PlantMeta.class)) {
             PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-            BlockType plantType = plantMeta.getPlantType();
+            BlockTypes plantType = plantMeta.getPlantType();
 
-            if (!PlantBlockCollection.isGrassPlant(plantType)) {
-                int plantColor = MaterialColorCollection.getColor(plantMeta.getPlantType());
+            if (!PlantBlockRegistry.isGrassPlant(plantType)) {
+                int plantColor = MaterialColorRegistry.getColor(plantMeta.getPlantType());
                 int centerPos = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
                 pixels[centerPos * RenderConfig.RENDER_SCALE + centerPos] = plantColor;
             }
@@ -53,7 +53,7 @@ public class BlockRenderer {
             UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
             short depth = meta.getDepth();
             double heightDiff = (double) depth * 0.1D + (double) (block.getX() + block.getY() & 1) * 0.2D;
-            baseColor = MaterialColorCollection.getColor(BlockType.WATER);
+            baseColor = MaterialColorRegistry.getColor(BlockTypes.WATER);
 
             if (heightDiff < 0.5D) {
                 brightness = 0x00;

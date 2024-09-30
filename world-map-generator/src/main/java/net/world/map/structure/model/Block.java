@@ -1,18 +1,18 @@
 package net.world.map.structure.model;
 
-import net.world.map.structure.collection.BlockType;
+import net.world.map.structure.registry.BlockTypes;
 
 public class Block {
     public final int x;
     public final int y;
     public final short height;
-    public final BlockType blockType;
+    public final BlockTypes blockTypes;
 
-    public Block(int x, int y, short height, BlockType blockType) {
+    public Block(int x, int y, short height, BlockTypes blockTypes) {
         this.x = x;
         this.y = y;
         this.height = height;
-        this.blockType = blockType;
+        this.blockTypes = blockTypes;
     }
 
     public int getX() {
@@ -23,11 +23,11 @@ public class Block {
         return y;
     }
 
-    public int getHeight() {
+    public short getHeight() {
         return height;
     }
 
-    public BlockType getBlockType() {
-        return blockType;
+    public BlockTypes getBlockType() {
+        return blockTypes;
     }
 }

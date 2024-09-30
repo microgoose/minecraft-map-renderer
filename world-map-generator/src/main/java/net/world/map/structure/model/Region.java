@@ -60,6 +60,6 @@ public class Region {
     }
 
     public void addChunk(Chunk chunk) {
-        addChunkByLocal(getChunkLocalX(chunk.x), getChunkLocalY(chunk.y), chunk);
+        addChunkByLocal(getChunkLocalX(chunk.getX()), getChunkLocalY(chunk.getY()), chunk);
     }
 }

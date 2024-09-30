@@ -3,9 +3,9 @@ package net.world.map.structure.model;
 import net.world.map.structure.config.ChunkConfig;
 
 public class Chunk {
-    public final int x;
-    public final int y;
-    public final Block[] blocks = new Block[ChunkConfig.CHUNK_MAX_CHUNKS_COUNT];
+    private final int x;
+    private final int y;
+    private final Block[] blocks = new Block[ChunkConfig.CHUNK_MAX_CHUNKS_COUNT];
 
     public Chunk(int x, int y) {
         this.x = x;
@@ -34,6 +34,10 @@ public class Chunk {
 
     public Block getBlockAt(int x, int y) {
         return getBlockByLocal(getBlockLocalX(x), getBlockLocalY(y));
+    }
+
+    public Block[] getBlocks() {
+        return blocks;
     }
 
     public void addBlockByLocal(int localX, int localY, Block block) {

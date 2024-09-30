@@ -3,8 +3,8 @@ package net.world.map.loader.parser;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 import net.world.map.loader.config.LoadingBlockConfig;
-import net.world.map.structure.collection.BlockType;
-import net.world.map.structure.collection.PlantBlockCollection;
+import net.world.map.structure.registry.BlockTypes;
+import net.world.map.structure.registry.PlantBlockRegistry;
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.SectionConfig;
 import net.world.map.structure.config.WorldConfig;
@@ -57,12 +57,12 @@ public class ChunkParser {
                         continue;
 
                     SectionParser sectionParser = sections[sectionIndex];
-                    BlockType blockType = sectionParser.getBlockType(x, height, y);
+                    BlockTypes blockTypes = sectionParser.getBlockType(x, height, y);
 
-                    if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
+                    if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockTypes))
                         continue;
 
-                    if (blockType.equals(BlockType.WATER) || PlantBlockCollection.isWaterPlant(blockType)) {
+                    if (blockTypes.equals(BlockTypes.WATER) || PlantBlockRegistry.isWaterPlant(blockTypes)) {
                         UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
 
                         if (meta == null)
@@ -73,11 +73,11 @@ public class ChunkParser {
                         continue;
                     }
 
-                    if (PlantBlockCollection.isPlant(blockType)) {
+                    if (PlantBlockRegistry.isPlant(blockTypes)) {
                         PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
 
                         if (meta == null)
-                            metadata.put(PlantMeta.class, new PlantMeta(blockType));
+                            metadata.put(PlantMeta.class, new PlantMeta(blockTypes));
                         else
                             meta.increasePlantHeight();
 
@@ -88,10 +88,10 @@ public class ChunkParser {
                     int blockGlobalY = startBlockY + y;
 
                     if (metadata.isEmpty()) {
-                        chunk.addBlockByLocal(x, y, new Block(blockGlobalX, blockGlobalY, height, blockType));
+                        chunk.addBlockByLocal(x, y, new Block(blockGlobalX, blockGlobalY, height, blockTypes));
                     } else {
                         chunk.addBlockByLocal(x, y,
-                                new BlockWithMetadata(blockGlobalX, blockGlobalY, height, blockType, metadata));
+                                new BlockWithMetadata(blockGlobalX, blockGlobalY, height, blockTypes, metadata));
                     }
 
                     break;

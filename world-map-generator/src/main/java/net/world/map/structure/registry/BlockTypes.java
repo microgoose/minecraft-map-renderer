@@ -1,8 +1,8 @@
-package net.world.map.structure.collection;
+package net.world.map.structure.registry;
 
 import java.util.EnumSet;
 
-public enum BlockType {
+public enum BlockTypes {
     AIR,
     STONE,
     GRANITE,
@@ -1063,9 +1063,9 @@ public enum BlockType {
     TRIAL_SPAWNER,
     VAULT;
 
-    private static final EnumSet<BlockType> types = EnumSet.allOf(BlockType.class);
+    private static final EnumSet<BlockTypes> types = EnumSet.allOf(BlockTypes.class);
 
     public static boolean contains(String material) {
-        return types.contains(BlockType.valueOf(material));
+        return types.contains(BlockTypes.valueOf(material));
     }
 }
