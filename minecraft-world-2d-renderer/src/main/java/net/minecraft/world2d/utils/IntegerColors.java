@@ -1,4 +1,4 @@
-package net.minecraft.world.api.renderer.utils;
+package net.minecraft.world2d.utils;
 
 public class IntegerColors {
     public static int red(int argb) {

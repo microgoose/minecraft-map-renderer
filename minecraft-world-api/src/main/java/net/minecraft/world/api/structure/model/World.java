@@ -7,31 +7,35 @@ import net.minecraft.world.api.structure.utils.PointsMap;
 public class World {
     PointsMap<Region> regions = new PointsMap<>();
 
-    public Region getRegionAt(int x, int y) {
-        int regionX = Math.floorDiv(x, RegionConfig.REGION_AREA);
-        int regionY = Math.floorDiv(y, RegionConfig.REGION_AREA);
+    public Region getRegionByLocal(int regionX, int regionY) {
+        return regions.get(regionX, regionY);
+    }
+
+    public Region getRegionAt(int globalX, int globalY) {
+        int regionX = Math.floorDiv(globalX, RegionConfig.REGION_AREA);
+        int regionY = Math.floorDiv(globalY, RegionConfig.REGION_AREA);
 
         return regions.get(regionX, regionY);
     }
 
-    public Block getBlockAt(int x, int y) {
-        Region region = getRegionAt(x, y);
+    public Block getBlockAt(int globalX, int globalY) {
+        Region region = getRegionAt(globalX, globalY);
 
         if (region == null)
             return null;
 
-        return region.getBlockAt(x, y);
+        return region.getBlockAt(globalX, globalY);
     }
 
     public PointsMap<Region> getRegions() {
         return regions;
     }
 
-    public Integer getWidth() {
+    public int getWidth() {
         return regions.getWidth() * RegionConfig.REGION_SIZE * ChunkConfig.CHUNK_SIZE;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return regions.getHeight() * RegionConfig.REGION_SIZE * ChunkConfig.CHUNK_SIZE;
     }
 

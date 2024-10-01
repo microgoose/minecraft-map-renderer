@@ -2,5 +2,5 @@
 ### Description:
 Expands Minecraft gameplay by adding a browser-based map display and territory borders for server play.
 
-### Launch
-Place the files from the .minecraft/.../world/region folder in src/main/resources/regions. Build (Maven) and run the project.
+### Render World
+Place the files from the .minecraft/.../world/region folder in minecraft-world-2d-renderer/src/main/resources/regions and run the project.

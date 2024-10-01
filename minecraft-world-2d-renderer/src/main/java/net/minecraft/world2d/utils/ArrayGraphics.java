@@ -1,4 +1,4 @@
-package net.minecraft.world.api.renderer.utils;
+package net.minecraft.world2d.utils;
 
 public class ArrayGraphics {
     public static void fillRect(int startX, int startY, int width, int height,

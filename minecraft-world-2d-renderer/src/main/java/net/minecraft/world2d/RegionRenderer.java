@@ -1,12 +1,12 @@
-package net.minecraft.world.api.renderer;
+package net.minecraft.world2d;
 
-import net.minecraft.world.api.renderer.utils.ArrayGraphics;
-import net.minecraft.world.api.renderer.config.RenderConfig;
 import net.minecraft.world.api.structure.config.ChunkConfig;
 import net.minecraft.world.api.structure.config.RegionConfig;
 import net.minecraft.world.api.structure.model.Chunk;
 import net.minecraft.world.api.structure.model.Region;
 import net.minecraft.world.api.structure.model.World;
+import net.minecraft.world2d.config.RenderConfig;
+import net.minecraft.world2d.utils.ArrayGraphics;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;

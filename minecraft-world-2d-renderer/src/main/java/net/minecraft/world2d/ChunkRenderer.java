@@ -1,11 +1,11 @@
-package net.minecraft.world.api.renderer;
+package net.minecraft.world2d;
 
-import net.minecraft.world.api.renderer.utils.ArrayGraphics;
-import net.minecraft.world.api.structure.model.Chunk;
-import net.minecraft.world.api.structure.model.World;
-import net.minecraft.world.api.renderer.config.RenderConfig;
 import net.minecraft.world.api.structure.config.ChunkConfig;
 import net.minecraft.world.api.structure.model.Block;
+import net.minecraft.world.api.structure.model.Chunk;
+import net.minecraft.world.api.structure.model.World;
+import net.minecraft.world2d.config.RenderConfig;
+import net.minecraft.world2d.utils.ArrayGraphics;
 
 public class ChunkRenderer {
     public static int[] render(World world, Chunk chunk) {

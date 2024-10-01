@@ -1,17 +1,17 @@
-package net.minecraft.world.api.renderer;
+package net.minecraft.world2d;
 
-import net.minecraft.world.api.renderer.utils.ArrayGraphics;
 import net.minecraft.world.api.structure.model.Block;
 import net.minecraft.world.api.structure.model.BlockWithMetadata;
 import net.minecraft.world.api.structure.model.World;
-import net.minecraft.world.api.structure.registries.PlantBlockRegistry;
-import net.minecraft.world.api.renderer.config.RenderConfig;
 import net.minecraft.world.api.structure.model.metadata.BlockMeta;
 import net.minecraft.world.api.structure.model.metadata.PlantMeta;
 import net.minecraft.world.api.structure.model.metadata.UnderwaterMeta;
 import net.minecraft.world.api.structure.registries.BlockTypes;
 import net.minecraft.world.api.structure.registries.MaterialColorRegistry;
-import net.minecraft.world.api.renderer.utils.IntegerColors;
+import net.minecraft.world.api.structure.registries.PlantBlockRegistry;
+import net.minecraft.world2d.config.RenderConfig;
+import net.minecraft.world2d.utils.ArrayGraphics;
+import net.minecraft.world2d.utils.IntegerColors;
 
 import java.util.Map;
 

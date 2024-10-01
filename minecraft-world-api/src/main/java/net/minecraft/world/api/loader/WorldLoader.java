@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 public class WorldLoader {
-    public static World getWorld(Path regionsDirectory) throws IOException {
+    public static World getWorld(Path regionsDirectory) {
         File regDir = regionsDirectory.toFile();
 
         if (!regDir.exists()) {

@@ -57,11 +57,11 @@ public class PointsMap<Element> {
         return minX;
     }
 
-    public Integer getWidth() {
+    public int getWidth() {
         return (maxX - minX) + 1;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return (maxY - minY) + 1;
     }
 }

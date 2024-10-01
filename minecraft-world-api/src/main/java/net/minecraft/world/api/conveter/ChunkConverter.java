@@ -16,9 +16,6 @@ public class ChunkConverter {
         Block[] blocks = chunk.getBlocks();
         CompressedChunk compressedChunk = new CompressedChunk();
 
-        //TODO interface for loader
-        //TODO saving to files
-
         for (int i = 0; i < blocks.length; i++) {
             Block block = blocks[i];
 
