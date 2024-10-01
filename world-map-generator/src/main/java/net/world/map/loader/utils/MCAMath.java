@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package net.world.map.loader.util;
+package net.world.map.loader.utils;
 
 public class MCAMath {
     /**

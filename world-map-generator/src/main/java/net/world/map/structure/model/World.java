@@ -2,7 +2,7 @@ package net.world.map.structure.model;
 
 import net.world.map.structure.config.ChunkConfig;
 import net.world.map.structure.config.RegionConfig;
-import net.world.map.structure.util.PointsMap;
+import net.world.map.structure.utils.PointsMap;
 
 public class World {
     PointsMap<Region> regions = new PointsMap<>();

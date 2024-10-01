@@ -4,7 +4,7 @@ import net.world.map.renderer.config.RenderConfig;
 import net.world.map.structure.model.Point;
 import net.world.map.structure.model.Region;
 import net.world.map.structure.model.World;
-import net.world.map.structure.util.PointsMap;
+import net.world.map.structure.utils.PointsMap;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

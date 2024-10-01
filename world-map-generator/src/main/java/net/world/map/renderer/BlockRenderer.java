@@ -1,7 +1,7 @@
 package net.world.map.renderer;
 
 import net.world.map.renderer.config.RenderConfig;
-import net.world.map.renderer.util.ArrayGraphics;
+import net.world.map.renderer.utils.ArrayGraphics;
 import net.world.map.structure.model.Block;
 import net.world.map.structure.model.BlockWithMetadata;
 import net.world.map.structure.model.World;
@@ -11,7 +11,7 @@ import net.world.map.structure.model.metadata.UnderwaterMeta;
 import net.world.map.structure.registries.BlockTypes;
 import net.world.map.structure.registries.MaterialColorRegistry;
 import net.world.map.structure.registries.PlantBlockRegistry;
-import net.world.map.structure.util.Colors;
+import net.world.map.renderer.utils.IntegerColors;
 
 import java.util.Map;
 
@@ -63,7 +63,7 @@ public class BlockRenderer {
                 brightness = 0x22;
             }
 
-            baseColor = Colors.blend(brightness << 24, baseColor);
+            baseColor = IntegerColors.blend(brightness << 24, baseColor);
             ArrayGraphics.fillRect(0, 0, RenderConfig.RENDER_SCALE, RenderConfig.RENDER_SCALE,
                     pixels, baseColor, RenderConfig.RENDER_SCALE);
             return;
@@ -80,18 +80,18 @@ public class BlockRenderer {
             int heightDiff = block.getHeight() - leftBlock.getHeight();
 
             if (heightDiff > 0)
-                drawLeftVerticalLine(pixels, Colors.adjustBrightness(color, 20));
+                drawLeftVerticalLine(pixels, IntegerColors.adjustBrightness(color, 20));
             else if (heightDiff < 0)
-                drawLeftVerticalLine(pixels, Colors.adjustBrightness(color, -20));
+                drawLeftVerticalLine(pixels, IntegerColors.adjustBrightness(color, -20));
         }
 
         if (topBlock != null) {
             int heightDiff = block.getHeight() - topBlock.getHeight();
 
             if (heightDiff > 0)
-                drawTopHorizontalLine(pixels, Colors.adjustBrightness(color, 20));
+                drawTopHorizontalLine(pixels, IntegerColors.adjustBrightness(color, 20));
             else if (heightDiff < 0)
-                drawTopHorizontalLine(pixels, Colors.adjustBrightness(color, -20));
+                drawTopHorizontalLine(pixels, IntegerColors.adjustBrightness(color, -20));
         }
     }
 

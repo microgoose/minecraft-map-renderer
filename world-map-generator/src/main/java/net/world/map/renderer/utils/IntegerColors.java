@@ -1,6 +1,6 @@
-package net.world.map.structure.util;
+package net.world.map.renderer.utils;
 
-public class Colors {
+public class IntegerColors {
     public static int red(int argb) {
         return argb >> 16 & 0xFF;
     }

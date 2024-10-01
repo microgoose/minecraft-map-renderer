@@ -1,4 +1,4 @@
-package net.world.map.structure.util;
+package net.world.map.structure.utils;
 
 import net.world.map.structure.model.Point;
 
