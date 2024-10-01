@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>world-map-generator</module>
+        <module>minecraft-world-api</module>
     </modules>
 
     <properties>
