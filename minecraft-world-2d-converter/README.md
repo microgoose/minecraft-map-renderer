@@ -1,5 +1,5 @@
 # WorldConverter
-`WorldConverter` is a utility for converting Minecraft world regions into a 2D compressed format. This tool reads regions from a specified directory and saves them in a new format that uses less memory, making it suitable for network transmission and browser usage.
+`WorldConverter` is a utility for converting Minecraft (v.1.18 and higher) world regions into a 2D compressed format. This tool reads regions from a specified directory and saves them in a new format that uses less memory, making it suitable for network transmission and browser usage.
 
 ## Installation
 1. Ensure that you have Java Development Kit (JDK) version 11 or higher installed.
