@@ -1,9 +1,9 @@
 package net.minecraft.world.api.loader.parser;
 
 import net.minecraft.world.api.loader.utils.MCAMath;
+import net.minecraft.world.api.structure.registries.BlockTypes;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
-import net.minecraft.world.api.structure.registries.BlockTypes;
 
 import java.util.Arrays;
 

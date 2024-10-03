@@ -1,5 +1,7 @@
 package net.minecraft.world.api.loader.parser;
 
+import net.minecraft.world.api.structure.config.RegionConfig;
+import net.minecraft.world.api.structure.model.Chunk;
 import net.minecraft.world.api.structure.model.Point;
 import net.minecraft.world.api.structure.model.Region;
 import net.querz.mca.CompressionType;
@@ -7,8 +9,6 @@ import net.querz.nbt.io.NBTInputStream;
 import net.querz.nbt.io.NamedTag;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.Tag;
-import net.minecraft.world.api.structure.config.RegionConfig;
-import net.minecraft.world.api.structure.model.Chunk;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ public class RegionParser {
         return new Point(x, y);
     }
 
-    public static Optional<Region> parse( File regionFile) {
+    public static Optional<Region> parse(File regionFile) {
         Point regionPoint = getRegionPoint(regionFile.getName());
         Region region = new Region(regionPoint.getX(), regionPoint.getY());
 

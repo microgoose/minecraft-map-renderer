@@ -1,19 +1,19 @@
 package net.minecraft.world.api.loader.parser;
 
-import net.minecraft.world.api.structure.config.SectionConfig;
-import net.minecraft.world.api.structure.config.WorldConfig;
-import net.minecraft.world.api.structure.model.Chunk;
-import net.querz.nbt.tag.CompoundTag;
-import net.querz.nbt.tag.ListTag;
 import net.minecraft.world.api.loader.config.LoadingBlockConfig;
 import net.minecraft.world.api.structure.config.ChunkConfig;
+import net.minecraft.world.api.structure.config.SectionConfig;
+import net.minecraft.world.api.structure.config.WorldConfig;
 import net.minecraft.world.api.structure.model.Block;
 import net.minecraft.world.api.structure.model.BlockWithMetadata;
+import net.minecraft.world.api.structure.model.Chunk;
 import net.minecraft.world.api.structure.model.metadata.BlockMeta;
 import net.minecraft.world.api.structure.model.metadata.PlantMeta;
 import net.minecraft.world.api.structure.model.metadata.UnderwaterMeta;
 import net.minecraft.world.api.structure.registries.BlockTypes;
 import net.minecraft.world.api.structure.registries.PlantBlockRegistry;
+import net.querz.nbt.tag.CompoundTag;
+import net.querz.nbt.tag.ListTag;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,10 @@
 package net.minecraft.world.api.loader;
 
-import net.minecraft.world.api.structure.model.World;
 import net.minecraft.world.api.loader.parser.RegionParser;
 import net.minecraft.world.api.structure.model.Region;
+import net.minecraft.world.api.structure.model.World;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 

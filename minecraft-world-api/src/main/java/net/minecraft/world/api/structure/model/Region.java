@@ -51,6 +51,10 @@ public class Region {
         return getChunkByLocal(getChunkLocalX(chunkX), getChunkLocalY(chunkY));
     }
 
+    public Chunk getChunkByIndex(int index) {
+        return chunks.get(index);
+    }
+
     public Map<Integer, Chunk> getChunks() {
         return chunks;
     }

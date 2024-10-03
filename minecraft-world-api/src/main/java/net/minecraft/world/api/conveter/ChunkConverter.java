@@ -1,6 +1,5 @@
 package net.minecraft.world.api.conveter;
 
-import net.minecraft.world.api.structure.registries.BlockTypeRegistry;
 import net.minecraft.world.api.conveter.model.CompressedChunk;
 import net.minecraft.world.api.structure.model.Block;
 import net.minecraft.world.api.structure.model.BlockWithMetadata;
@@ -8,11 +7,12 @@ import net.minecraft.world.api.structure.model.Chunk;
 import net.minecraft.world.api.structure.model.metadata.BlockMeta;
 import net.minecraft.world.api.structure.model.metadata.PlantMeta;
 import net.minecraft.world.api.structure.model.metadata.UnderwaterMeta;
+import net.minecraft.world.api.structure.registries.BlockTypeRegistry;
 
 import java.util.Map;
 
 public class ChunkConverter {
-    public static void compress(Chunk chunk) {
+    public static CompressedChunk compress(Chunk chunk) {
         Block[] blocks = chunk.getBlocks();
         CompressedChunk compressedChunk = new CompressedChunk();
 
@@ -35,5 +35,7 @@ public class ChunkConverter {
                 }
             }
         }
+
+        return compressedChunk;
     }
 }
