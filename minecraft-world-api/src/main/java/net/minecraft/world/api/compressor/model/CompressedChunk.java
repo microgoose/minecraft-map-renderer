@@ -1,4 +1,4 @@
-package net.minecraft.world.api.conveter.model;
+package net.minecraft.world.api.compressor.model;
 
 public class CompressedChunk {
     private final short[] blockLayer = new short[256];

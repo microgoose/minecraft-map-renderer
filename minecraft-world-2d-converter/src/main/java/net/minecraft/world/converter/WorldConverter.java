@@ -1,7 +1,7 @@
 package net.minecraft.world.converter;
 
-import net.minecraft.world.api.conveter.RegionConverter;
-import net.minecraft.world.api.conveter.model.CompressedRegion;
+import net.minecraft.world.api.compressor.RegionCompressor;
+import net.minecraft.world.api.compressor.model.CompressedRegion;
 import net.minecraft.world.api.structure.model.Point;
 import net.minecraft.world.api.structure.model.Region;
 
@@ -28,7 +28,7 @@ public class WorldConverter {
                 continue;
             }
 
-            CompressedRegion compressedRegion = RegionConverter.convert(regionOptional.get());
+            CompressedRegion compressedRegion = RegionCompressor.convert(regionOptional.get());
             writer.write(regionPoint, compressedRegion);
         }
 

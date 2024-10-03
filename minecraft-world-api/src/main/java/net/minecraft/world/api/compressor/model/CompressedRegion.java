@@ -1,4 +1,4 @@
-package net.minecraft.world.api.conveter.model;
+package net.minecraft.world.api.compressor.model;
 
 import java.util.HashMap;
 import java.util.Map;

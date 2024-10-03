@@ -1,6 +1,6 @@
 package net.minecraft.world.converter;
 
-import net.minecraft.world.api.conveter.model.CompressedRegion;
+import net.minecraft.world.api.compressor.model.CompressedRegion;
 import net.minecraft.world.api.structure.model.Point;
 
 import java.nio.file.Path;

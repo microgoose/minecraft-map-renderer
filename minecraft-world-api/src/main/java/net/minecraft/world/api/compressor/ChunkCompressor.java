@@ -1,6 +1,6 @@
-package net.minecraft.world.api.conveter;
+package net.minecraft.world.api.compressor;
 
-import net.minecraft.world.api.conveter.model.CompressedChunk;
+import net.minecraft.world.api.compressor.model.CompressedChunk;
 import net.minecraft.world.api.structure.model.Block;
 import net.minecraft.world.api.structure.model.BlockWithMetadata;
 import net.minecraft.world.api.structure.model.Chunk;
@@ -11,7 +11,7 @@ import net.minecraft.world.api.structure.registries.BlockTypeRegistry;
 
 import java.util.Map;
 
-public class ChunkConverter {
+public class ChunkCompressor {
     public static CompressedChunk compress(Chunk chunk) {
         Block[] blocks = chunk.getBlocks();
         CompressedChunk compressedChunk = new CompressedChunk();

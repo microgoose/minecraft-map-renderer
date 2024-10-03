@@ -1,12 +1,12 @@
-package net.minecraft.world.api.conveter;
+package net.minecraft.world.api.compressor;
 
-import net.minecraft.world.api.conveter.model.CompressedChunk;
-import net.minecraft.world.api.conveter.model.CompressedRegion;
+import net.minecraft.world.api.compressor.model.CompressedChunk;
+import net.minecraft.world.api.compressor.model.CompressedRegion;
 import net.minecraft.world.api.structure.config.RegionConfig;
 import net.minecraft.world.api.structure.model.Chunk;
 import net.minecraft.world.api.structure.model.Region;
 
-public class RegionConverter {
+public class RegionCompressor {
     public static CompressedRegion convert(Region region) {
         CompressedRegion compressedRegion = new CompressedRegion();
 
@@ -16,7 +16,7 @@ public class RegionConverter {
             if (chunk == null)
                 continue;
 
-            CompressedChunk compressedChunk = ChunkConverter.compress(chunk);
+            CompressedChunk compressedChunk = ChunkCompressor.compress(chunk);
             compressedRegion.addChunk(index, compressedChunk);
         }
 
