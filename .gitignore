@@ -1,4 +1,7 @@
 *.mca
+*.dat
+**/resource/regions/
+**/resource/converted/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
