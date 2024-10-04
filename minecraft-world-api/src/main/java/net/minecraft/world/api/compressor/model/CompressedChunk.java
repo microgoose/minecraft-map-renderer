@@ -10,6 +10,30 @@ public class CompressedChunk {
     private final short[] plantLayer = new short[256];
     private final short[] plantHeight = new short[256];
 
+    public short[] getBlockLayer() {
+        return blockLayer;
+    }
+
+    public short[] getBlockHeights() {
+        return blockHeights;
+    }
+
+    public byte[] getWaterLayer() {
+        return waterLayer;
+    }
+
+    public short[] getWaterDepth() {
+        return waterDepth;
+    }
+
+    public short[] getPlantLayer() {
+        return plantLayer;
+    }
+
+    public short[] getPlantHeight() {
+        return plantHeight;
+    }
+
     public void setBlockLayer(int index, short type, short height) {
         blockLayer[index] = type;
         blockHeights[index] = height;

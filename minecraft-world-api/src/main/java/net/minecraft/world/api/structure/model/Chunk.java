@@ -5,7 +5,7 @@ import net.minecraft.world.api.structure.config.ChunkConfig;
 public class Chunk {
     private final int x;
     private final int y;
-    private final Block[] blocks = new Block[ChunkConfig.CHUNK_MAX_CHUNKS_COUNT];
+    private final Block[] blocks = new Block[ChunkConfig.CHUNK_MAX_BLOCKS_COUNT];
 
     public Chunk(int x, int y) {
         this.x = x;
