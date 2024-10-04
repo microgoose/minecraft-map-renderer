@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>minecraft-world-api</module>
-        <module>minecraft-world-2d-converter</module>
-        <module>minecraft-world-2d-renderer</module>
+        <module>minecountry-world-api</module>
+        <module>minecountry-world-io</module>
+        <module>minecountry-world-renderer</module>
     </modules>
 
     <properties>

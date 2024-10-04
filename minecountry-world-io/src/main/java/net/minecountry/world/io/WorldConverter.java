@@ -1,4 +1,4 @@
-package net.minecraft.world.converter;
+package net.minecountry.world.io;
 
 import net.minecraft.world.api.compressor.RegionCompressor;
 import net.minecraft.world.api.compressor.model.CompressedRegion;
@@ -18,7 +18,7 @@ public class WorldConverter {
 
         String regionsPathArg = args[0].substring(REGION_PATH_ARG.length() + 1);
         String destinationPathArg = args[1].substring(DESTINATION_PATH_ARG.length() + 1);
-        RegionReader reader = new RegionReader(getDir(regionsPathArg));
+        MCARegionReader reader = new MCARegionReader(getDir(regionsPathArg));
         RegionWriter writer = new RegionWriter(getDir(destinationPathArg));
 
         for (Point regionPoint : reader.getRegionPoints()) {

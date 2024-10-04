@@ -1,4 +1,4 @@
-package net.minecraft.world.converter;
+package net.minecountry.world.io;
 
 import net.minecraft.world.api.loader.parser.RegionParser;
 import net.minecraft.world.api.structure.model.Point;
@@ -10,10 +10,10 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class RegionReader {
+public class MCARegionReader {
     private final Map<Point, Path> regions = new HashMap<>();
 
-    public RegionReader(Path regionsPath) {
+    public MCARegionReader(Path regionsPath) {
         try (Stream<Path> paths = Files.list(regionsPath)) {
             paths.filter(Files::isRegularFile).forEach(path -> {
                 Point regionPoint = RegionParser.getRegionPoint(path.getFileName().toString());

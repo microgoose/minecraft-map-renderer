@@ -1,10 +1,10 @@
-package net.minecraft.world.converter;
+package net.minecountry.world.io;
 
 import net.minecraft.world.api.compressor.model.CompressedChunk;
 import net.minecraft.world.api.compressor.model.CompressedRegion;
 import net.minecraft.world.api.structure.config.ChunkConfig;
 import net.minecraft.world.api.structure.model.Point;
-import net.minecraft.world.converter.config.RegionIOConfig;
+import net.minecountry.world.io.config.RegionIOConfig;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

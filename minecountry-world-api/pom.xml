@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>minecraft-world-api</artifactId>
+    <artifactId>minecountry-world-api</artifactId>
     <packaging>jar</packaging>
-    <name>minecraft-world-api</name>
+    <name>minecountry-world-api</name>
 
     <build>
         <plugins>
