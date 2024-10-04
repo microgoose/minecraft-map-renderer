@@ -1,9 +1,9 @@
 package net.minecountry.world.io;
 
-import net.minecraft.world.api.compressor.model.CompressedChunk;
-import net.minecraft.world.api.compressor.model.CompressedRegion;
-import net.minecraft.world.api.structure.config.ChunkConfig;
-import net.minecraft.world.api.structure.model.Point;
+import net.minecountry.world.api.compressor.model.CompressedChunk;
+import net.minecountry.world.api.compressor.model.CompressedRegion;
+import net.minecountry.world.api.structure.config.ChunkConfig;
+import net.minecountry.world.api.structure.model.Point;
 import net.minecountry.world.io.config.RegionIOConfig;
 
 import java.io.IOException;
@@ -59,12 +59,12 @@ public class RegionWriter {
         buffer.order(ByteOrder.BIG_ENDIAN);
 
         for (short index = 0; index < ChunkConfig.CHUNK_MAX_BLOCKS_COUNT; index++) {
-            buffer.putShort(chunk.getBlockLayer()[index]);
+            buffer.putShort(chunk.getBlockTypes()[index]);
             buffer.putShort(chunk.getBlockHeights()[index]);
 
             buffer.putShort(chunk.getWaterDepth()[index]);
 
-            buffer.putShort(chunk.getPlantLayer()[index]);
+            buffer.putShort(chunk.getPlantTypes()[index]);
             buffer.putShort(chunk.getPlantHeight()[index]);
         }
 

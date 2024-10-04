@@ -1,7 +1,7 @@
-*.mca
-*.dat
-**/resource/regions/
-**/resource/converted/
+**/test/**/*.mca
+**/test/**/*.dta
+**/test/resource/regions/
+**/test/resource/converted/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
