@@ -1,18 +1,18 @@
 package net.minecountry.world.api.structure.model;
 
-import net.minecountry.world.api.structure.registries.BlockTypes;
+import net.minecountry.world.api.structure.registries.BlockType;
 
 public class Block {
     private final int x;
     private final int y;
     private final short height;
-    private final BlockTypes blockTypes;
+    private final BlockType blockType;
 
-    public Block(int x, int y, short height, BlockTypes blockTypes) {
+    public Block(int x, int y, short height, BlockType blockType) {
         this.x = x;
         this.y = y;
         this.height = height;
-        this.blockTypes = blockTypes;
+        this.blockType = blockType;
     }
 
     public int getX() {
@@ -27,7 +27,7 @@ public class Block {
         return height;
     }
 
-    public BlockTypes getBlockType() {
-        return blockTypes;
+    public BlockType getBlockType() {
+        return blockType;
     }
 }

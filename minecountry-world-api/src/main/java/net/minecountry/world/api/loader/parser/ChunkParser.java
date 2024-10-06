@@ -9,7 +9,7 @@ import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
-import net.minecountry.world.api.structure.registries.BlockTypes;
+import net.minecountry.world.api.structure.registries.BlockType;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
@@ -60,12 +60,12 @@ public class ChunkParser {
                     continue;
 
                 SectionParser sectionParser = sections[sectionIndex];
-                BlockTypes blockTypes = sectionParser.getBlockType(localX, height, localY);
+                BlockType blockType = sectionParser.getBlockType(localX, height, localY);
 
-                if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockTypes))
+                if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
                     continue;
 
-                if (blockTypes.equals(BlockTypes.WATER) || PlantBlockRegistry.isWaterPlant(blockTypes)) {
+                if (blockType.equals(BlockType.WATER) || PlantBlockRegistry.isWaterPlant(blockType)) {
                     UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
 
                     if (meta == null)
@@ -76,11 +76,11 @@ public class ChunkParser {
                     continue;
                 }
 
-                if (PlantBlockRegistry.isPlant(blockTypes)) {
+                if (PlantBlockRegistry.isPlant(blockType)) {
                     PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
 
                     if (meta == null)
-                        metadata.put(PlantMeta.class, new PlantMeta(blockTypes));
+                        metadata.put(PlantMeta.class, new PlantMeta(blockType));
                     else
                         meta.increasePlantHeight();
 
@@ -88,10 +88,10 @@ public class ChunkParser {
                 }
 
                 if (metadata.isEmpty()) {
-                    chunk.setBlock(index, new Block(globalX, globalY, height, blockTypes));
+                    chunk.setBlock(index, new Block(globalX, globalY, height, blockType));
                 } else {
                     chunk.setBlock(index,
-                            new BlockWithMetadata(globalX, globalY, height, blockTypes, metadata));
+                            new BlockWithMetadata(globalX, globalY, height, blockType, metadata));
                 }
 
                 break;

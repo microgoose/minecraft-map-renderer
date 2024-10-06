@@ -5,7 +5,7 @@ import net.minecountry.world.api.structure.config.RegionConfig;
 import net.minecountry.world.api.structure.model.Region;
 import net.minecountry.world.api.structure.model.World;
 
-public class RegionService {
+public class RegionLocator {
     public static Region getAtLocal(World world, int localX, int LocalY) {
         return world.getRegions().get(localX, LocalY);
     }

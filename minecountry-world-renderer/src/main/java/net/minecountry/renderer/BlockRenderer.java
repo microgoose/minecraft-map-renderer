@@ -9,10 +9,10 @@ import net.minecountry.world.api.structure.model.World;
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
-import net.minecountry.world.api.structure.registries.BlockTypes;
+import net.minecountry.world.api.structure.registries.BlockType;
 import net.minecountry.world.api.structure.registries.MaterialColorRegistry;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
-import net.minecountry.world.api.structure.service.BlockService;
+import net.minecountry.world.api.structure.service.BlockLocator;
 
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class BlockRenderer {
 
         if (metadata.containsKey(PlantMeta.class)) {
             PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-            BlockTypes plantType = plantMeta.getPlantType();
+            BlockType plantType = plantMeta.getPlantType();
 
             if (!PlantBlockRegistry.isGrassPlant(plantType)) {
                 int plantColor = MaterialColorRegistry.getColor(plantMeta.getPlantType());
@@ -54,7 +54,7 @@ public class BlockRenderer {
             UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
             short depth = meta.getDepth();
             double heightDiff = (double) depth * 0.1D + (double) (block.getX() + block.getY() & 1) * 0.2D;
-            baseColor = MaterialColorRegistry.getColor(BlockTypes.WATER);
+            baseColor = MaterialColorRegistry.getColor(BlockType.WATER);
 
             if (heightDiff < 0.5D) {
                 brightness = 0x00;
@@ -74,8 +74,8 @@ public class BlockRenderer {
     }
 
     private static void drawShading(World world, Block block, int[] pixels, int color) {
-        Block leftBlock = BlockService.getAtGlobal(world, block.getX() - 1, block.getY());
-        Block topBlock = BlockService.getAtGlobal(world, block.getX(), block.getY() - 1);
+        Block leftBlock = BlockLocator.getAtGlobal(world, block.getX() - 1, block.getY());
+        Block topBlock = BlockLocator.getAtGlobal(world, block.getX(), block.getY() - 1);
 
         if (leftBlock != null) {
             int heightDiff = block.getHeight() - leftBlock.getHeight();

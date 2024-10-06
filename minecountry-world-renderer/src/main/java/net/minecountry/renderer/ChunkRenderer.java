@@ -6,7 +6,7 @@ import net.minecountry.world.api.structure.config.ChunkConfig;
 import net.minecountry.world.api.structure.model.Block;
 import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.World;
-import net.minecountry.world.api.structure.service.BlockService;
+import net.minecountry.world.api.structure.service.BlockLocator;
 
 public class ChunkRenderer {
     public static int[] render(World world, Chunk chunk) {
@@ -18,7 +18,7 @@ public class ChunkRenderer {
 
         for (int x = 0; x < ChunkConfig.BLOCKS_SIDE; x++) {
             for (int y = 0; y < ChunkConfig.BLOCKS_SIDE; y++) {
-                Block block = BlockService.getAtLocal(chunk, x, y);
+                Block block = BlockLocator.getAtLocal(chunk, x, y);
 
                 ArrayGraphics.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight,
                         pixels, BlockRenderer.render(world, block), imageWidth);

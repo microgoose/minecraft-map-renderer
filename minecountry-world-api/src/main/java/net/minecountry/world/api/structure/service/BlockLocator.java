@@ -6,7 +6,7 @@ import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.Region;
 import net.minecountry.world.api.structure.model.World;
 
-public class BlockService {
+public class BlockLocator {
     public static Block getAtLocal(Chunk chunk, int localX, int localY) {
         return chunk.getBlock(getIndex(localX, localY));
     }
@@ -18,7 +18,7 @@ public class BlockService {
     }
 
     public static Block getAtGlobal(Region region, int globalX, int globalY) {
-        Chunk chunk = ChunkService.getAtGlobal(region, globalX, globalY);
+        Chunk chunk = ChunkLocator.getAtGlobal(region, globalX, globalY);
 
         if (chunk == null)
             return null;
@@ -27,7 +27,7 @@ public class BlockService {
     }
 
     public static Block getAtGlobal(World world, int globalX, int globalY) {
-        Region region = RegionService.getAtGlobal(world, globalX, globalY);
+        Region region = RegionLocator.getAtGlobal(world, globalX, globalY);
 
         if (region == null)
             return null;

@@ -7,7 +7,7 @@ import net.minecountry.world.api.structure.config.RegionConfig;
 import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.Region;
 import net.minecountry.world.api.structure.model.World;
-import net.minecountry.world.api.structure.service.ChunkService;
+import net.minecountry.world.api.structure.service.ChunkLocator;
 
 import java.awt.image.BufferedImage;
 
@@ -19,7 +19,7 @@ public class RegionRenderer {
 
         for (int x = 0; x < RegionConfig.CHUNK_SIDE; x++) {
             for (int y = 0; y < RegionConfig.CHUNK_SIDE; y++) {
-                Chunk chunk = ChunkService.getAtLocal(region, x, y);
+                Chunk chunk = ChunkLocator.getAtLocal(region, x, y);
 
                 if (chunk == null)
                     continue;

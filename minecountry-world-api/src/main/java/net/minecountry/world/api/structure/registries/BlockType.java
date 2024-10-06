@@ -2,7 +2,7 @@ package net.minecountry.world.api.structure.registries;
 
 import java.util.EnumSet;
 
-public enum BlockTypes {
+public enum BlockType {
     AIR,
     STONE,
     GRANITE,
@@ -1063,9 +1063,9 @@ public enum BlockTypes {
     TRIAL_SPAWNER,
     VAULT;
 
-    private static final EnumSet<BlockTypes> types = EnumSet.allOf(BlockTypes.class);
+    private static final EnumSet<BlockType> types = EnumSet.allOf(BlockType.class);
 
     public static boolean contains(String material) {
-        return types.contains(BlockTypes.valueOf(material));
+        return types.contains(BlockType.valueOf(material));
     }
 }

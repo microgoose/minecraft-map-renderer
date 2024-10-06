@@ -5,7 +5,7 @@ import net.minecountry.world.api.structure.config.RegionConfig;
 import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.Region;
 
-public class ChunkService {
+public class ChunkLocator {
     public static Chunk getAtLocal(Region region, int localX, int localY) {
         return region.getChunk(getIndex(localX, localY));
     }

@@ -1,16 +1,16 @@
 package net.minecountry.world.api.structure.model;
 
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
-import net.minecountry.world.api.structure.registries.BlockTypes;
+import net.minecountry.world.api.structure.registries.BlockType;
 
 import java.util.Map;
 
 public class BlockWithMetadata extends Block {
     private final Map<Class<? extends BlockMeta>, BlockMeta> metadata;
 
-    public BlockWithMetadata(int x, int y, short height, BlockTypes blockTypes,
+    public BlockWithMetadata(int x, int y, short height, BlockType blockType,
                              Map<Class<? extends BlockMeta>, BlockMeta> metadata) {
-        super(x, y, height, blockTypes);
+        super(x, y, height, blockType);
         this.metadata = metadata;
     }
 
