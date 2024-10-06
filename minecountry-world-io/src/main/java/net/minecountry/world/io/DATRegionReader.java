@@ -42,7 +42,7 @@ public class DATRegionReader {
     private CompressedChunk bytesToChunk(ByteBuffer buffer) {
         CompressedChunk chunk = new CompressedChunk();
 
-        for (short index = 0; index < ChunkConfig.CHUNK_MAX_BLOCKS_COUNT; index++) {
+        for (short index = 0; index < ChunkConfig.BLOCKS_COUNT; index++) {
             short blockType = buffer.getShort();
             short blockHeight = buffer.getShort();
 

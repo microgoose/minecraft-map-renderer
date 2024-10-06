@@ -6,18 +6,19 @@ import net.minecountry.world.api.structure.config.ChunkConfig;
 import net.minecountry.world.api.structure.model.Block;
 import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.World;
+import net.minecountry.world.api.structure.service.BlockService;
 
 public class ChunkRenderer {
     public static int[] render(World world, Chunk chunk) {
         int blockWidth = RenderConfig.RENDER_SCALE;
         int blockHeight = RenderConfig.RENDER_SCALE;
-        int imageWidth = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
-        int imageHeight = ChunkConfig.CHUNK_SIZE * RenderConfig.RENDER_SCALE;
+        int imageWidth = ChunkConfig.BLOCKS_SIDE * RenderConfig.RENDER_SCALE;
+        int imageHeight = ChunkConfig.BLOCKS_SIDE * RenderConfig.RENDER_SCALE;
         int[] pixels = new int[imageWidth * imageHeight];
 
-        for (int x = 0; x < ChunkConfig.CHUNK_SIZE; x++) {
-            for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
-                Block block = chunk.getBlockByLocal(x, y);
+        for (int x = 0; x < ChunkConfig.BLOCKS_SIDE; x++) {
+            for (int y = 0; y < ChunkConfig.BLOCKS_SIDE; y++) {
+                Block block = BlockService.getAtLocal(chunk, x, y);
 
                 ArrayGraphics.fillRect(x * blockWidth, y * blockHeight, blockWidth, blockHeight,
                         pixels, BlockRenderer.render(world, block), imageWidth);

@@ -1,10 +1,10 @@
 package net.minecountry.renderer;
 
-import net.minecountry.world.api.structure.model.Point;
+import net.minecountry.renderer.config.RenderConfig;
+import net.minecountry.world.api.common.Point;
+import net.minecountry.world.api.common.PointsMap;
 import net.minecountry.world.api.structure.model.Region;
 import net.minecountry.world.api.structure.model.World;
-import net.minecountry.world.api.structure.utils.PointsMap;
-import net.minecountry.renderer.config.RenderConfig;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +17,7 @@ public class WorldRenderTest {
     public static final String pathToRegionsFolder = "minecountry-world-renderer/src/test/resources/regions";
     public static final String pathToImage = "minecountry-world-renderer/src/test/resources";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         World world = readWorld();
         BufferedImage worldMapImage = render(world);
 
@@ -48,8 +48,8 @@ public class WorldRenderTest {
             Region region = entry.getValue();
             BufferedImage regionImage = RegionRenderer.render(world, region);
 
-            int xPos = (region.getX() - regionsMap.getMinX()) * regionImage.getWidth();
-            int yPos = (region.getY() - regionsMap.getMinY()) * regionImage.getHeight();
+            int xPos = (region.getRegionX() - regionsMap.getMinX()) * regionImage.getWidth();
+            int yPos = (region.getRegionY() - regionsMap.getMinY()) * regionImage.getHeight();
 
             graphics.drawImage(regionImage, xPos, yPos, null);
             graphics.drawRect(xPos, yPos, xPos + regionImage.getWidth(), yPos + regionImage.getHeight());

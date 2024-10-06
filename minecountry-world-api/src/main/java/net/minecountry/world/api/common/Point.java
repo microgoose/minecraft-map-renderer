@@ -1,4 +1,4 @@
-package net.minecountry.world.api.structure.model;
+package net.minecountry.world.api.common;
 
 import java.util.Objects;
 

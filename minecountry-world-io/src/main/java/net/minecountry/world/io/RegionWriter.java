@@ -1,9 +1,9 @@
 package net.minecountry.world.io;
 
+import net.minecountry.world.api.common.Point;
 import net.minecountry.world.api.compressor.model.CompressedChunk;
 import net.minecountry.world.api.compressor.model.CompressedRegion;
 import net.minecountry.world.api.structure.config.ChunkConfig;
-import net.minecountry.world.api.structure.model.Point;
 import net.minecountry.world.io.config.RegionIOConfig;
 
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class RegionWriter {
         ByteBuffer buffer = ByteBuffer.allocate(RegionIOConfig.CHUNK_BYTE_SIZE);
         buffer.order(ByteOrder.BIG_ENDIAN);
 
-        for (short index = 0; index < ChunkConfig.CHUNK_MAX_BLOCKS_COUNT; index++) {
+        for (short index = 0; index < ChunkConfig.BLOCKS_COUNT; index++) {
             buffer.putShort(chunk.getBlockTypes()[index]);
             buffer.putShort(chunk.getBlockHeights()[index]);
 

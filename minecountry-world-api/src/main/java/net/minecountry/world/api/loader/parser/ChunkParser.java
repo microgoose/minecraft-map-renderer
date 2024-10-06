@@ -1,12 +1,11 @@
 package net.minecountry.world.api.loader.parser;
 
-import net.minecountry.world.api.structure.config.SectionConfig;
-import net.minecountry.world.api.structure.config.WorldConfig;
-import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.loader.config.LoadingBlockConfig;
 import net.minecountry.world.api.structure.config.ChunkConfig;
+import net.minecountry.world.api.structure.config.WorldConfig;
 import net.minecountry.world.api.structure.model.Block;
 import net.minecountry.world.api.structure.model.BlockWithMetadata;
+import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
@@ -43,59 +42,59 @@ public class ChunkParser {
 
         Chunk chunk = new Chunk(chunkX, chunkY);
 
-        int startBlockX = chunkX * ChunkConfig.CHUNK_SIZE;
-        int startBlockY = chunkY * ChunkConfig.CHUNK_SIZE;
+        int startBlockX = chunkX * ChunkConfig.BLOCKS_SIDE;
+        int startBlockY = chunkY * ChunkConfig.BLOCKS_SIDE;
 
-        for (int x = 0; x < ChunkConfig.CHUNK_SIZE; x++) {
-            for (int y = 0; y < ChunkConfig.CHUNK_SIZE; y++) {
-                Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
+        for (int index = 0; index < ChunkConfig.BLOCKS_COUNT; index++) {
+            int localX = index % ChunkConfig.BLOCKS_SIDE;
+            int localY = index / ChunkConfig.BLOCKS_SIDE;
+            int globalX = startBlockX + localX;
+            int globalY = startBlockY + localY;
 
-                for (short height = maxHeight; height > minHeight; height--) {
-                    int sectionIndex = Math.floorDiv(height, SectionConfig.SECTION_HEIGHT) - sectionMinY;
+            Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
 
-                    if (sections[sectionIndex] == null)
-                        continue;
+            for (short height = maxHeight; height > minHeight; height--) {
+                int sectionIndex = Math.floorDiv(height, ChunkConfig.SECTIONS_COUNT) - sectionMinY;
 
-                    SectionParser sectionParser = sections[sectionIndex];
-                    BlockTypes blockTypes = sectionParser.getBlockType(x, height, y);
+                if (sections[sectionIndex] == null)
+                    continue;
 
-                    if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockTypes))
-                        continue;
+                SectionParser sectionParser = sections[sectionIndex];
+                BlockTypes blockTypes = sectionParser.getBlockType(localX, height, localY);
 
-                    if (blockTypes.equals(BlockTypes.WATER) || PlantBlockRegistry.isWaterPlant(blockTypes)) {
-                        UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
+                if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockTypes))
+                    continue;
 
-                        if (meta == null)
-                            metadata.put(UnderwaterMeta.class, new UnderwaterMeta());
-                        else
-                            meta.incrementDepth();
+                if (blockTypes.equals(BlockTypes.WATER) || PlantBlockRegistry.isWaterPlant(blockTypes)) {
+                    UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
 
-                        continue;
-                    }
+                    if (meta == null)
+                        metadata.put(UnderwaterMeta.class, new UnderwaterMeta());
+                    else
+                        meta.incrementDepth();
 
-                    if (PlantBlockRegistry.isPlant(blockTypes)) {
-                        PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
-
-                        if (meta == null)
-                            metadata.put(PlantMeta.class, new PlantMeta(blockTypes));
-                        else
-                            meta.increasePlantHeight();
-
-                        continue;
-                    }
-
-                    int blockGlobalX = startBlockX + x;
-                    int blockGlobalY = startBlockY + y;
-
-                    if (metadata.isEmpty()) {
-                        chunk.addBlockByLocal(x, y, new Block(blockGlobalX, blockGlobalY, height, blockTypes));
-                    } else {
-                        chunk.addBlockByLocal(x, y,
-                                new BlockWithMetadata(blockGlobalX, blockGlobalY, height, blockTypes, metadata));
-                    }
-
-                    break;
+                    continue;
                 }
+
+                if (PlantBlockRegistry.isPlant(blockTypes)) {
+                    PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
+
+                    if (meta == null)
+                        metadata.put(PlantMeta.class, new PlantMeta(blockTypes));
+                    else
+                        meta.increasePlantHeight();
+
+                    continue;
+                }
+
+                if (metadata.isEmpty()) {
+                    chunk.setBlock(index, new Block(globalX, globalY, height, blockTypes));
+                } else {
+                    chunk.setBlock(index,
+                            new BlockWithMetadata(globalX, globalY, height, blockTypes, metadata));
+                }
+
+                break;
             }
         }
 

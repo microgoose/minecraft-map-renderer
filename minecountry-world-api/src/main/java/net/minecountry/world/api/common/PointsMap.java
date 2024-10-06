@@ -1,6 +1,4 @@
-package net.minecountry.world.api.structure.utils;
-
-import net.minecountry.world.api.structure.model.Point;
+package net.minecountry.world.api.common;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -10,8 +10,8 @@ public class RegionCompressor {
     public static CompressedRegion convert(Region region) {
         CompressedRegion compressedRegion = new CompressedRegion();
 
-        for (short index = 0; index < RegionConfig.REGION_MAX_CHUNKS_COUNT; index++) {
-            Chunk chunk = region.getChunkByIndex(index);
+        for (short index = 0; index < RegionConfig.CHUNKS_COUNT; index++) {
+            Chunk chunk = region.getChunk(index);
 
             if (chunk == null)
                 continue;

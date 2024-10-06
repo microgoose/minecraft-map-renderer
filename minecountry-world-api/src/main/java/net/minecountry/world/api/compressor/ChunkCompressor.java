@@ -1,6 +1,5 @@
 package net.minecountry.world.api.compressor;
 
-import net.minecountry.world.api.structure.registries.BlockTypeRegistry;
 import net.minecountry.world.api.compressor.model.CompressedChunk;
 import net.minecountry.world.api.structure.model.Block;
 import net.minecountry.world.api.structure.model.BlockWithMetadata;
@@ -8,6 +7,7 @@ import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
+import net.minecountry.world.api.structure.registries.BlockTypeRegistry;
 
 import java.util.Map;
 

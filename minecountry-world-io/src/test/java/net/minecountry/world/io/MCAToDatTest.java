@@ -1,8 +1,8 @@
 package net.minecountry.world.io;
 
+import net.minecountry.world.api.common.Point;
 import net.minecountry.world.api.compressor.RegionCompressor;
 import net.minecountry.world.api.compressor.model.CompressedRegion;
-import net.minecountry.world.api.structure.model.Point;
 import net.minecountry.world.api.structure.model.Region;
 
 import java.nio.file.Path;

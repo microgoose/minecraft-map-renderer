@@ -1,5 +1,8 @@
 package net.minecountry.renderer;
 
+import net.minecountry.renderer.config.RenderConfig;
+import net.minecountry.renderer.utils.ArrayGraphics;
+import net.minecountry.renderer.utils.IntegerColors;
 import net.minecountry.world.api.structure.model.Block;
 import net.minecountry.world.api.structure.model.BlockWithMetadata;
 import net.minecountry.world.api.structure.model.World;
@@ -9,9 +12,7 @@ import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
 import net.minecountry.world.api.structure.registries.BlockTypes;
 import net.minecountry.world.api.structure.registries.MaterialColorRegistry;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
-import net.minecountry.renderer.config.RenderConfig;
-import net.minecountry.renderer.utils.ArrayGraphics;
-import net.minecountry.renderer.utils.IntegerColors;
+import net.minecountry.world.api.structure.service.BlockService;
 
 import java.util.Map;
 
@@ -73,8 +74,8 @@ public class BlockRenderer {
     }
 
     private static void drawShading(World world, Block block, int[] pixels, int color) {
-        Block leftBlock = world.getBlockAt(block.getX() - 1, block.getY());
-        Block topBlock = world.getBlockAt(block.getX(), block.getY() - 1);
+        Block leftBlock = BlockService.getAtGlobal(world, block.getX() - 1, block.getY());
+        Block topBlock = BlockService.getAtGlobal(world, block.getX(), block.getY() - 1);
 
         if (leftBlock != null) {
             int heightDiff = block.getHeight() - leftBlock.getHeight();

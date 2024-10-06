@@ -1,9 +1,9 @@
 package net.minecountry.world.api.loader.parser;
 
-import net.minecountry.world.api.structure.model.Region;
+import net.minecountry.world.api.common.Point;
 import net.minecountry.world.api.structure.config.RegionConfig;
 import net.minecountry.world.api.structure.model.Chunk;
-import net.minecountry.world.api.structure.model.Point;
+import net.minecountry.world.api.structure.model.Region;
 import net.querz.mca.CompressionType;
 import net.querz.nbt.io.NBTInputStream;
 import net.querz.nbt.io.NamedTag;
@@ -27,15 +27,17 @@ public class RegionParser {
         Region region = new Region(regionPoint.getX(), regionPoint.getY());
 
         try (RandomAccessFile raf = new RandomAccessFile(regionFile, "r")) {
-            for (int i = 0; i < RegionConfig.REGION_MAX_CHUNKS_COUNT; i++) {
-                Optional<Chunk> chunk = parseChunk(raf, i);
-                chunk.ifPresent(region::addChunk);
+            for (int index = 0; index < RegionConfig.CHUNKS_COUNT; index++) {
+                Optional<Chunk> chunk = parseChunk(raf, index);
+
+                if (chunk.isPresent())
+                    region.setChunk(index, chunk.get());
             }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 
-        if (region.getChunks().isEmpty())
+        if (region.getChunks().length == 0)
             return Optional.empty();
 
         return Optional.of(region);
@@ -65,7 +67,7 @@ public class RegionParser {
         }
 
         DataInputStream dis = new DataInputStream(new BufferedInputStream(
-                compressionType.decompress(new FileInputStream(raf.getFD()))
+            compressionType.decompress(new FileInputStream(raf.getFD()))
         ));
 
         NamedTag tag = new NBTInputStream(dis).readTag(Tag.DEFAULT_MAX_DEPTH);
