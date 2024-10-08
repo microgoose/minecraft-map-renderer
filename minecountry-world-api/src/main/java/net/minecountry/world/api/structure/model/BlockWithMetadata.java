@@ -8,7 +8,7 @@ import java.util.Map;
 public class BlockWithMetadata extends Block {
     private final Map<Class<? extends BlockMeta>, BlockMeta> metadata;
 
-    public BlockWithMetadata(int x, int y, short height, BlockType blockType,
+    public BlockWithMetadata(int x, int y, short height, short blockType,
                              Map<Class<? extends BlockMeta>, BlockMeta> metadata) {
         super(x, y, height, blockType);
         this.metadata = metadata;

@@ -10,7 +10,7 @@ import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
 import net.minecountry.world.api.structure.registries.BlockType;
-import net.minecountry.world.api.structure.registries.MaterialColorRegistry;
+import net.minecountry.world.api.structure.registries.BlockTypeColorRegistry;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
 import net.minecountry.world.api.structure.service.BlockLocator;
 
@@ -21,7 +21,7 @@ public class BlockRenderer {
         int blockWidth = RenderConfig.RENDER_SCALE;
         int blockHeight = RenderConfig.RENDER_SCALE;
         int[] pixels = new int[blockWidth * blockHeight];
-        int baseColor = MaterialColorRegistry.getColor(block.getBlockType());
+        int baseColor = BlockTypeColorRegistry.getColor(block.getBlockType());
 
         ArrayGraphics.fillRect(0, 0, blockWidth, blockHeight, pixels, baseColor, blockWidth);
 
@@ -39,10 +39,10 @@ public class BlockRenderer {
 
         if (metadata.containsKey(PlantMeta.class)) {
             PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-            BlockType plantType = plantMeta.getPlantType();
+            BlockType plantType = BlockType.getById(plantMeta.getPlantType());
 
             if (!PlantBlockRegistry.isGrassPlant(plantType)) {
-                int plantColor = MaterialColorRegistry.getColor(plantMeta.getPlantType());
+                int plantColor = BlockTypeColorRegistry.getColor(plantMeta.getPlantType());
                 int centerPos = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
                 pixels[centerPos * RenderConfig.RENDER_SCALE + centerPos] = plantColor;
             }
@@ -54,7 +54,7 @@ public class BlockRenderer {
             UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
             short depth = meta.getDepth();
             double heightDiff = (double) depth * 0.1D + (double) (block.getX() + block.getY() & 1) * 0.2D;
-            baseColor = MaterialColorRegistry.getColor(BlockType.WATER);
+            baseColor = BlockTypeColorRegistry.getColor(BlockType.WATER);
 
             if (heightDiff < 0.5D) {
                 brightness = 0x00;

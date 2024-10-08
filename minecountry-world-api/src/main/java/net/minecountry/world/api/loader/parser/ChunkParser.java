@@ -80,7 +80,7 @@ public class ChunkParser {
                     PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
 
                     if (meta == null)
-                        metadata.put(PlantMeta.class, new PlantMeta(blockType));
+                        metadata.put(PlantMeta.class, new PlantMeta(blockType.getId()));
                     else
                         meta.increasePlantHeight();
 
@@ -88,10 +88,10 @@ public class ChunkParser {
                 }
 
                 if (metadata.isEmpty()) {
-                    chunk.setBlock(index, new Block(globalX, globalY, height, blockType));
+                    chunk.setBlock(index, new Block(globalX, globalY, height, blockType.getId()));
                 } else {
                     chunk.setBlock(index,
-                            new BlockWithMetadata(globalX, globalY, height, blockType, metadata));
+                            new BlockWithMetadata(globalX, globalY, height, blockType.getId(), metadata));
                 }
 
                 break;

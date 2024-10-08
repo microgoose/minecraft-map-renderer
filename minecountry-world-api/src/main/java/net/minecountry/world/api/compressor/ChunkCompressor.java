@@ -7,7 +7,6 @@ import net.minecountry.world.api.structure.model.Chunk;
 import net.minecountry.world.api.structure.model.metadata.BlockMeta;
 import net.minecountry.world.api.structure.model.metadata.PlantMeta;
 import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
-import net.minecountry.world.api.structure.registries.BlockTypeRegistry;
 
 import java.util.Map;
 
@@ -19,7 +18,7 @@ public class ChunkCompressor {
         for (int i = 0; i < blocks.length; i++) {
             Block block = blocks[i];
 
-            compressedChunk.setBlockLayer(0, BlockTypeRegistry.getId(block.getBlockType()), block.getHeight());
+            compressedChunk.setBlockLayer(0, block.getBlockType(), block.getHeight());
 
             if (block instanceof BlockWithMetadata blockWithMetadata) {
                 Map<Class<? extends BlockMeta>, BlockMeta> metadata = blockWithMetadata.getMetadata();
@@ -31,7 +30,7 @@ public class ChunkCompressor {
 
                 if (metadata.containsKey(PlantMeta.class)) {
                     PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-                    compressedChunk.setPlantLayer(i, BlockTypeRegistry.getId(plantMeta.getPlantType()), plantMeta.getPlantHeight());
+                    compressedChunk.setPlantLayer(i, plantMeta.getPlantType(), plantMeta.getPlantHeight());
                 }
             }
         }

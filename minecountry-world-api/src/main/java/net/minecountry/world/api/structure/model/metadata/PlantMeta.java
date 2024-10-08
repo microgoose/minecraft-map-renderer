@@ -1,16 +1,14 @@
 package net.minecountry.world.api.structure.model.metadata;
 
-import net.minecountry.world.api.structure.registries.BlockType;
-
 public class PlantMeta extends BlockMeta {
     public short plantHeight = 1;
-    public BlockType plantType;
+    public short plantType;
 
-    public PlantMeta(BlockType plantType) {
+    public PlantMeta(short plantType) {
         this.plantType = plantType;
     }
 
-    public BlockType getPlantType() {
+    public short getPlantType() {
         return plantType;
     }
 

@@ -24,7 +24,7 @@ public class SectionParser {
         for (int i = 0; i < this.blockPalette.length; i++) {
             CompoundTag entry = paletteTag.get(i);
             String id = entry.getString("Name");
-            this.blockPalette[i] = BlockType.valueOf(id.substring(prefixLength).toUpperCase());
+            this.blockPalette[i] = BlockType.getByName(id.substring(prefixLength).toUpperCase());
         }
 
         this.blocks = blockStatesTag.getLongArray("data");

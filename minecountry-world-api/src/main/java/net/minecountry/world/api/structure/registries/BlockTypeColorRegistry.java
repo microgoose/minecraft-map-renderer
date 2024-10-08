@@ -3,7 +3,7 @@ package net.minecountry.world.api.structure.registries;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MaterialColorRegistry {
+public class BlockTypeColorRegistry {
     public static final Map<BlockType, Integer> BLOCK_COLORS = new HashMap<>();
 
     static {
@@ -902,5 +902,9 @@ public class MaterialColorRegistry {
         }
 
         return rgb;
+    }
+
+    public static int getColor(short blockTypeId) {
+        return getColor(BlockType.getById(blockTypeId));
     }
 }
