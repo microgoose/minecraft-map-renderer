@@ -1,6 +1,5 @@
 package net.minecountry.world.api.structure.registries;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -4,17 +4,12 @@ import net.minecountry.renderer.config.RenderConfig;
 import net.minecountry.renderer.utils.ArrayGraphics;
 import net.minecountry.renderer.utils.IntegerColors;
 import net.minecountry.world.api.structure.model.Block;
-import net.minecountry.world.api.structure.model.BlockWithMetadata;
+import net.minecountry.world.api.structure.model.LayeredBlock;
 import net.minecountry.world.api.structure.model.World;
-import net.minecountry.world.api.structure.model.metadata.BlockMeta;
-import net.minecountry.world.api.structure.model.metadata.PlantMeta;
-import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
 import net.minecountry.world.api.structure.registries.BlockType;
 import net.minecountry.world.api.structure.registries.BlockTypeColorRegistry;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
 import net.minecountry.world.api.structure.service.BlockLocator;
-
-import java.util.Map;
 
 public class BlockRenderer {
     public static int[] render(World world, Block block) {
@@ -25,8 +20,8 @@ public class BlockRenderer {
 
         ArrayGraphics.fillRect(0, 0, blockWidth, blockHeight, pixels, baseColor, blockWidth);
 
-        if (block instanceof BlockWithMetadata bwm) {
-            drawByMetaData(world, bwm, pixels, baseColor);
+        if (block instanceof LayeredBlock lb) {
+            drawByMetaData(world, lb, pixels, baseColor);
         } else {
             drawShading(world, block, pixels, baseColor);
         }
@@ -34,43 +29,46 @@ public class BlockRenderer {
         return pixels;
     }
 
-    private static void drawByMetaData(World world, BlockWithMetadata block, int[] pixels, int baseColor) {
-        Map<Class<? extends BlockMeta>, BlockMeta> metadata = block.getMetadata();
+    private static void drawByMetaData(World world, LayeredBlock layeredBlock, int[] pixels, int baseColor) {
+        short[] types = layeredBlock.getTypes();
+        short[] heights = layeredBlock.getHeights();
 
-        if (metadata.containsKey(PlantMeta.class)) {
-            PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-            BlockType plantType = BlockType.getById(plantMeta.getPlantType());
+        for (int j = 0; j < types.length; j++) {
+            short type = types[j];
+            short height = heights[j];
+            BlockType blockType = BlockType.getById(type);
 
-            if (!PlantBlockRegistry.isGrassPlant(plantType)) {
-                int plantColor = BlockTypeColorRegistry.getColor(plantMeta.getPlantType());
-                int centerPos = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
-                pixels[centerPos * RenderConfig.RENDER_SCALE + centerPos] = plantColor;
+            if (blockType == BlockType.WATER) {
+                short depth = (short) (height - layeredBlock.getHeight());
+                double heightDiff = (double) depth * 0.1D + (double) (layeredBlock.getX() + layeredBlock.getY() & 1) * 0.2D;
+                baseColor = BlockTypeColorRegistry.getColor(BlockType.WATER);
+
+                int brightness;
+                if (heightDiff < 0.5D) {
+                    brightness = 0x00;
+                } else if (heightDiff > 0.9D) {
+                    brightness = 0x44;
+                } else {
+                    brightness = 0x22;
+                }
+
+                baseColor = IntegerColors.blend(brightness << 24, baseColor);
+                ArrayGraphics.fillRect(0, 0, RenderConfig.RENDER_SCALE, RenderConfig.RENDER_SCALE,
+                        pixels, baseColor, RenderConfig.RENDER_SCALE);
+
+                return;
+            }
+
+            if (PlantBlockRegistry.isPlant(blockType)) {
+                if (!PlantBlockRegistry.isGrassPlant(blockType)) {
+                    int plantColor = BlockTypeColorRegistry.getColor(blockType);
+                    int centerPos = Math.floorDiv(RenderConfig.RENDER_SCALE, 2);
+                    pixels[centerPos * RenderConfig.RENDER_SCALE + centerPos] = plantColor;
+                }
             }
         }
 
-        if (metadata.containsKey(UnderwaterMeta.class)) {
-            int brightness;
-
-            UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
-            short depth = meta.getDepth();
-            double heightDiff = (double) depth * 0.1D + (double) (block.getX() + block.getY() & 1) * 0.2D;
-            baseColor = BlockTypeColorRegistry.getColor(BlockType.WATER);
-
-            if (heightDiff < 0.5D) {
-                brightness = 0x00;
-            } else if (heightDiff > 0.9D) {
-                brightness = 0x44;
-            } else {
-                brightness = 0x22;
-            }
-
-            baseColor = IntegerColors.blend(brightness << 24, baseColor);
-            ArrayGraphics.fillRect(0, 0, RenderConfig.RENDER_SCALE, RenderConfig.RENDER_SCALE,
-                    pixels, baseColor, RenderConfig.RENDER_SCALE);
-            return;
-        }
-
-        drawShading(world, block, pixels, baseColor);
+        drawShading(world, layeredBlock, pixels, baseColor);
     }
 
     private static void drawShading(World world, Block block, int[] pixels, int color) {

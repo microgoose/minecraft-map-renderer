@@ -17,7 +17,7 @@ public class WorldRenderTest {
     public static final String pathToRegionsFolder = "minecountry-world-renderer/src/test/resources/regions";
     public static final String pathToImage = "minecountry-world-renderer/src/test/resources";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         World world = readWorld();
         BufferedImage worldMapImage = render(world);
 

@@ -2,13 +2,10 @@ package net.minecountry.world.api.compressor;
 
 import net.minecountry.world.api.compressor.model.CompressedChunk;
 import net.minecountry.world.api.structure.model.Block;
-import net.minecountry.world.api.structure.model.BlockWithMetadata;
 import net.minecountry.world.api.structure.model.Chunk;
-import net.minecountry.world.api.structure.model.metadata.BlockMeta;
-import net.minecountry.world.api.structure.model.metadata.PlantMeta;
-import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
-
-import java.util.Map;
+import net.minecountry.world.api.structure.model.LayeredBlock;
+import net.minecountry.world.api.structure.registries.BlockType;
+import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
 
 public class ChunkCompressor {
     public static CompressedChunk compress(Chunk chunk) {
@@ -20,17 +17,21 @@ public class ChunkCompressor {
 
             compressedChunk.setBlockLayer(0, block.getBlockType(), block.getHeight());
 
-            if (block instanceof BlockWithMetadata blockWithMetadata) {
-                Map<Class<? extends BlockMeta>, BlockMeta> metadata = blockWithMetadata.getMetadata();
+            if (block instanceof LayeredBlock layeredBlock) {
+                short[] types = layeredBlock.getTypes();
+                short[] heights = layeredBlock.getHeights();
 
-                if (metadata.containsKey(UnderwaterMeta.class)) {
-                    UnderwaterMeta underwaterMeta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
-                    compressedChunk.setWaterLayer(i, underwaterMeta.getDepth());
-                }
+                for (int j = 0; j < types.length; j++) {
+                    short type = types[j];
+                    short height = heights[j];
 
-                if (metadata.containsKey(PlantMeta.class)) {
-                    PlantMeta plantMeta = (PlantMeta) metadata.get(PlantMeta.class);
-                    compressedChunk.setPlantLayer(i, plantMeta.getPlantType(), plantMeta.getPlantHeight());
+                    if (type == BlockType.WATER.getId()) {
+                        compressedChunk.setWaterLayer(i, (short) (height - layeredBlock.getHeight()));
+                    }
+
+                    if (PlantBlockRegistry.isPlant(BlockType.getById(type))) {
+                        compressedChunk.setPlantLayer(i, type, height);
+                    }
                 }
             }
         }

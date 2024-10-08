@@ -4,18 +4,15 @@ import net.minecountry.world.api.loader.config.LoadingBlockConfig;
 import net.minecountry.world.api.structure.config.ChunkConfig;
 import net.minecountry.world.api.structure.config.WorldConfig;
 import net.minecountry.world.api.structure.model.Block;
-import net.minecountry.world.api.structure.model.BlockWithMetadata;
 import net.minecountry.world.api.structure.model.Chunk;
-import net.minecountry.world.api.structure.model.metadata.BlockMeta;
-import net.minecountry.world.api.structure.model.metadata.PlantMeta;
-import net.minecountry.world.api.structure.model.metadata.UnderwaterMeta;
+import net.minecountry.world.api.structure.model.LayeredBlock;
 import net.minecountry.world.api.structure.registries.BlockType;
 import net.minecountry.world.api.structure.registries.PlantBlockRegistry;
 import net.querz.nbt.tag.CompoundTag;
 import net.querz.nbt.tag.ListTag;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ChunkParser {
@@ -51,7 +48,8 @@ public class ChunkParser {
             int globalX = startBlockX + localX;
             int globalY = startBlockY + localY;
 
-            Map<Class<? extends BlockMeta>, BlockMeta> metadata = new HashMap<>();
+            List<Short> layersHeight = new ArrayList<>();
+            List<Short> layersTypes = new ArrayList<>();
 
             for (short height = maxHeight; height > minHeight; height--) {
                 int sectionIndex = Math.floorDiv(height, ChunkConfig.SECTIONS_COUNT) - sectionMinY;
@@ -65,33 +63,35 @@ public class ChunkParser {
                 if (LoadingBlockConfig.IGNORED_BLOCKS.contains(blockType))
                     continue;
 
+                short blockTypeId = blockType.getId();
+
+                if (layersTypes.contains(blockTypeId))
+                    continue;
+
                 if (blockType.equals(BlockType.WATER) || PlantBlockRegistry.isWaterPlant(blockType)) {
-                    UnderwaterMeta meta = (UnderwaterMeta) metadata.get(UnderwaterMeta.class);
-
-                    if (meta == null)
-                        metadata.put(UnderwaterMeta.class, new UnderwaterMeta());
-                    else
-                        meta.incrementDepth();
-
+                    layersHeight.add(height);
+                    layersTypes.add(BlockType.WATER.getId());
                     continue;
                 }
 
                 if (PlantBlockRegistry.isPlant(blockType)) {
-                    PlantMeta meta = (PlantMeta) metadata.get(PlantMeta.class);
-
-                    if (meta == null)
-                        metadata.put(PlantMeta.class, new PlantMeta(blockType.getId()));
-                    else
-                        meta.increasePlantHeight();
-
+                    layersHeight.add(height);
+                    layersTypes.add(blockTypeId);
                     continue;
                 }
 
-                if (metadata.isEmpty()) {
-                    chunk.setBlock(index, new Block(globalX, globalY, height, blockType.getId()));
+                if (layersTypes.isEmpty()) {
+                    chunk.setBlock(index, new Block(globalX, globalY, height, blockTypeId));
                 } else {
-                    chunk.setBlock(index,
-                            new BlockWithMetadata(globalX, globalY, height, blockType.getId(), metadata));
+                    short[] layersHeightArray = new short[layersTypes.size()];
+                    short[] layersTypesArray = new short[layersTypes.size()];
+
+                    for (int i = 0; i < layersTypes.size(); i++) {
+                        layersHeightArray[i] = layersHeight.get(i);
+                        layersTypesArray[i] = layersTypes.get(i);
+                    }
+
+                    chunk.setBlock(index, new LayeredBlock(globalX, globalY, height, blockTypeId, layersHeightArray, layersTypesArray));
                 }
 
                 break;
