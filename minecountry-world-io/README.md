@@ -20,7 +20,7 @@ version: 1.0
 chunks:
   - index: short        # Chunk index (16-bit integer)
   - chunk:
-      - blockLayer: short[256]         # Array of block types (256 elements, 16-bit integers)
+      - blockLayerFilter: short[256]         # Array of block types (256 elements, 16-bit integers)
       - blockHeights: short[256]       # Array of block heights (256 elements, 16-bit integers)
       - waterLayer: byte[32]            # Bit map of water layer (32 elements, 8-bit integers)
       - waterDepth: short[256]          # Array of water depths (256 elements, 16-bit integers)
@@ -32,7 +32,7 @@ chunks:
 - **CompressedRegion**: The main structure representing a compressed region of the world.
 - **chunks**: A list of chunks containing information about block types, heights, and other layers (water, vegetation).
 - **index**: A unique index for each chunk. (range 0 - 256)
-- **blockLayer**: An array containing block types for each position in the chunk.
+- **blockLayerFilter**: An array containing block types for each position in the chunk.
 - **blockHeights**: An array containing heights of blocks for each position in the chunk.
 - **waterLayer**: A bit map indicating whether there is water at corresponding positions.
 - **waterDepth**: An array containing water depths for each position.

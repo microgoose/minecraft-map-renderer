@@ -1,17 +1,18 @@
 package net.minecountry.renderer;
 
-import net.minecountry.renderer.config.RenderConfig;
-import net.minecountry.world.api.common.Point;
-import net.minecountry.world.api.common.PointsMap;
-import net.minecountry.world.api.structure.model.Region;
-import net.minecountry.world.api.structure.model.World;
+import net.minecountry.renderer.common.RenderBlockFilter;
+import net.minecountry.renderer.common.RenderBlockLayerFilter;
+import net.minecountry.world.api.model.Region;
+import net.minecountry.world.api.model.World;
+import net.minecountry.world.io.mca.deserializer.ChunkDeserializer;
+import net.minecountry.world.io.mca.deserializer.RegionDeserializer;
+import net.minecountry.world.io.mca.reader.RegionReader;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Map;
+import java.util.Optional;
 
 public class WorldRenderTest {
     public static final String pathToRegionsFolder = "minecountry-world-renderer/src/test/resources/regions";
@@ -19,7 +20,7 @@ public class WorldRenderTest {
 
     public static void main(String[] args) {
         World world = readWorld();
-        BufferedImage worldMapImage = render(world);
+        BufferedImage worldMapImage = WorldRenderer.render(world);
 
         try {
             ImageIO.write(worldMapImage, "png", new File(pathToImage, "world-map.png"));
@@ -29,34 +30,32 @@ public class WorldRenderTest {
     }
 
     private static World readWorld()  {
-        return WorldLoader.getWorld(Path.of(pathToRegionsFolder));
-    }
+        File regDir = Path.of(pathToRegionsFolder).toFile();
 
-    private static BufferedImage render(World world) {
-        BufferedImage worldMapImage = new BufferedImage(
-            world.getWidth() * RenderConfig.RENDER_SCALE,
-            world.getHeight() * RenderConfig.RENDER_SCALE,
-            BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D graphics = worldMapImage.createGraphics();
-
-        graphics.setColor(Color.BLACK);
-
-        PointsMap<Region> regionsMap = world.getRegions();
-
-        for (Map.Entry<Point, Region> entry : regionsMap.getMap().entrySet()) {
-            Region region = entry.getValue();
-            BufferedImage regionImage = RegionRenderer.render(world, region);
-
-            int xPos = (region.getRegionX() - regionsMap.getMinX()) * regionImage.getWidth();
-            int yPos = (region.getRegionY() - regionsMap.getMinY()) * regionImage.getHeight();
-
-            graphics.drawImage(regionImage, xPos, yPos, null);
-            graphics.drawRect(xPos, yPos, xPos + regionImage.getWidth(), yPos + regionImage.getHeight());
+        if (!regDir.exists()) {
+            throw new IllegalArgumentException("Region directory does not exist: " + regDir);
         }
 
-        graphics.dispose();
+        if (!regDir.isDirectory()) {
+            throw new IllegalArgumentException("Region directory is not a directory: " + regDir);
+        }
 
-        return worldMapImage;
+        File[] regionFiles = regDir.listFiles();
+
+        if (regionFiles == null) {
+            throw new IllegalArgumentException("Region directory contains no region files: " + regDir);
+        }
+
+        World world = new World();
+        ChunkDeserializer chunkDeserializer =
+                new ChunkDeserializer(new RenderBlockFilter(), new RenderBlockLayerFilter());
+        RegionDeserializer regionDeserializer = new RegionDeserializer(chunkDeserializer);
+
+        for (File regionFile : regionFiles) {
+            Optional<Region> regionOpt = RegionReader.read(regionDeserializer, regionFile);
+            regionOpt.ifPresent(world::addRegion);
+        }
+
+        return world;
     }
 }
