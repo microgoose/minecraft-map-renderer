@@ -4,10 +4,10 @@ import net.minecountry.renderer.config.RenderConfig;
 import net.minecountry.renderer.utils.ArrayGraphics;
 import net.minecountry.world.api.config.ChunkConfig;
 import net.minecountry.world.api.config.RegionConfig;
+import net.minecountry.world.api.locators.ChunkLocator;
 import net.minecountry.world.api.model.Chunk;
 import net.minecountry.world.api.model.Region;
 import net.minecountry.world.api.model.World;
-import net.minecountry.world.api.locators.ChunkLocator;
 
 import java.awt.image.BufferedImage;
 

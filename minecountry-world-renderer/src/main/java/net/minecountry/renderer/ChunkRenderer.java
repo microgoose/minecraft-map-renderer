@@ -3,10 +3,10 @@ package net.minecountry.renderer;
 import net.minecountry.renderer.config.RenderConfig;
 import net.minecountry.renderer.utils.ArrayGraphics;
 import net.minecountry.world.api.config.ChunkConfig;
+import net.minecountry.world.api.locators.BlockLocator;
 import net.minecountry.world.api.model.Block;
 import net.minecountry.world.api.model.Chunk;
 import net.minecountry.world.api.model.World;
-import net.minecountry.world.api.locators.BlockLocator;
 
 public class ChunkRenderer {
     public static int[] render(World world, Chunk chunk) {

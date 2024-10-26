@@ -3,13 +3,13 @@ package net.minecountry.renderer;
 import net.minecountry.renderer.config.RenderConfig;
 import net.minecountry.renderer.utils.ArrayGraphics;
 import net.minecountry.renderer.utils.IntegerColors;
+import net.minecountry.world.api.locators.BlockLocator;
 import net.minecountry.world.api.model.Block;
 import net.minecountry.world.api.model.LayeredBlock;
 import net.minecountry.world.api.model.World;
 import net.minecountry.world.api.registries.BlockType;
 import net.minecountry.world.api.registries.BlockTypeColorRegistry;
 import net.minecountry.world.api.registries.PlantBlockRegistry;
-import net.minecountry.world.api.locators.BlockLocator;
 
 public class BlockRenderer {
     public static int[] render(World world, Block block) {
