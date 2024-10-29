@@ -9,4 +9,8 @@ public class CompressedRegion {
     public void addChunk(short index, CompressedChunk chunk) {
         chunks.put(index, chunk);
     }
+
+    public Map<Short, CompressedChunk> getChunks() {
+        return chunks;
+    }
 }

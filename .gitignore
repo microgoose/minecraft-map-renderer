@@ -1,5 +1,5 @@
 **/test/**/*.mca
-**/test/**/*.dta
+**/test/**/*.dat
 **/test/resource/regions/
 **/test/resource/converted/
 

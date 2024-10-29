@@ -3,15 +3,15 @@ package net.minecountry.world.io.dat.model;
 import java.util.List;
 
 public class CompressedChunk {
-    private static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
-    private final short[] palette;
-    private final byte[] blockTypes;
-    private final short[] blockHeights;
+    public final short[] palette;
+    public final byte[] blockTypes;
+    public final short[] blockHeights;
 
-    private final byte[] layersPresenceBitmap; //256 bit
-    private final short[][] layersBlockTypes;
-    private final short[][] layersHeights;
+    public final byte[] layersPresenceBitmap; //256 bit
+    public final short[][] layersBlockTypes;
+    public final short[][] layersHeights;
 
     public CompressedChunk(short[] palette, byte[] blockTypes, short[] blockHeights,
                            byte[] layersPresenceBitmap, short[][] layersBlockTypes, short[][] layersHeights) {
