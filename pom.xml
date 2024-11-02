@@ -12,7 +12,6 @@
     <modules>
         <module>minecountry-world-api</module>
         <module>minecountry-world-io</module>
-        <module>minecountry-world-renderer</module>
     </modules>
 
     <properties>
