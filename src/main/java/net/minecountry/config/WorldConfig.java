@@ -1,4 +1,4 @@
-package net.minecountry.world.api.config;
+package net.minecountry.config;
 
 public class WorldConfig {
     public static final short MAX_HEIGHT = 319;

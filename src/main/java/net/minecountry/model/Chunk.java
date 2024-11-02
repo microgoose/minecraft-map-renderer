@@ -1,6 +1,6 @@
-package net.minecountry.world.api.model;
+package net.minecountry.model;
 
-import net.minecountry.world.api.config.ChunkConfig;
+import net.minecountry.config.ChunkConfig;
 
 public class Chunk {
     private final int chunkX;

@@ -1,6 +1,6 @@
-package net.minecountry.world.api.model;
+package net.minecountry.model;
 
-import net.minecountry.world.api.config.RegionConfig;
+import net.minecountry.config.RegionConfig;
 
 public class Region {
     private final int regionX;

@@ -1,4 +1,4 @@
-package net.minecountry.world.api.config;
+package net.minecountry.config;
 
 public class ChunkConfig {
     public static final int BLOCKS_SIDE = 16;

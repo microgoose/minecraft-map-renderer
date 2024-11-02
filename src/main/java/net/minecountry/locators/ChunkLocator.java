@@ -1,9 +1,9 @@
-package net.minecountry.world.api.locators;
+package net.minecountry.locators;
 
-import net.minecountry.world.api.config.ChunkConfig;
-import net.minecountry.world.api.config.RegionConfig;
-import net.minecountry.world.api.model.Chunk;
-import net.minecountry.world.api.model.Region;
+import net.minecountry.config.ChunkConfig;
+import net.minecountry.config.RegionConfig;
+import net.minecountry.model.Chunk;
+import net.minecountry.model.Region;
 
 public class ChunkLocator {
     public static Chunk getAtLocal(Region region, int localX, int localY) {

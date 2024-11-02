@@ -1,10 +1,10 @@
-package net.minecountry.world.api.locators;
+package net.minecountry.locators;
 
-import net.minecountry.world.api.config.ChunkConfig;
-import net.minecountry.world.api.model.Block;
-import net.minecountry.world.api.model.Chunk;
-import net.minecountry.world.api.model.Region;
-import net.minecountry.world.api.model.World;
+import net.minecountry.config.ChunkConfig;
+import net.minecountry.model.Block;
+import net.minecountry.model.Chunk;
+import net.minecountry.model.Region;
+import net.minecountry.model.World;
 
 public class BlockLocator {
     public static Block getAtLocal(Chunk chunk, int localX, int localY) {

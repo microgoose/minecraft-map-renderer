@@ -1,8 +1,8 @@
-package net.minecountry.world.api.model;
+package net.minecountry.model;
 
-import net.minecountry.world.api.common.PointsMap;
-import net.minecountry.world.api.config.ChunkConfig;
-import net.minecountry.world.api.config.RegionConfig;
+import net.minecountry.common.PointsMap;
+import net.minecountry.config.ChunkConfig;
+import net.minecountry.config.RegionConfig;
 
 public class World {
     PointsMap<Region> regions = new PointsMap<>();

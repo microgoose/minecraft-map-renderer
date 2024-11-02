@@ -1,4 +1,4 @@
-package net.minecountry.world.api.registries;
+package net.minecountry.registries;
 
 import java.util.HashMap;
 import java.util.Map;

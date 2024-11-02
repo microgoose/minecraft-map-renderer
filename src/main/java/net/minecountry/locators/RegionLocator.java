@@ -1,9 +1,9 @@
-package net.minecountry.world.api.locators;
+package net.minecountry.locators;
 
-import net.minecountry.world.api.common.PointsMap;
-import net.minecountry.world.api.config.RegionConfig;
-import net.minecountry.world.api.model.Region;
-import net.minecountry.world.api.model.World;
+import net.minecountry.common.PointsMap;
+import net.minecountry.config.RegionConfig;
+import net.minecountry.model.Region;
+import net.minecountry.model.World;
 
 public class RegionLocator {
     public static Region getAtLocal(World world, int localX, int LocalY) {

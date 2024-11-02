@@ -1,4 +1,4 @@
-package net.minecountry.world.api.config;
+package net.minecountry.config;
 
 public class RegionConfig {
     public final static int CHUNK_SIDE = 32;

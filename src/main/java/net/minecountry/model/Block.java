@@ -1,4 +1,4 @@
-package net.minecountry.world.api.model;
+package net.minecountry.model;
 
 public class Block {
     private final int x;

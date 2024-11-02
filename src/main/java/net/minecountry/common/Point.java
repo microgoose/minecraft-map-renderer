@@ -1,4 +1,4 @@
-package net.minecountry.world.api.common;
+package net.minecountry.common;
 
 import java.util.Objects;
 
