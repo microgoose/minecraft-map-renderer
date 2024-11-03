@@ -24,7 +24,7 @@ public class RegionImageSaver {
             }
         }
 
-        String fileName = String.format("%d.%d.region.webp", regionX, regionY);
+        String fileName = String.format("%d.%d.region.png", regionX, regionY);
         ImageIO.write(regionImage, "png", new File(regionDir, fileName));
     }
 
